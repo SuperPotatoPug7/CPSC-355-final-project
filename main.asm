@@ -3,6 +3,37 @@
 
     .data
 
+// holds room data
+// 1D global 1-byte array of size 20
+    .global room_cards
+room_cards: // TODO: design room cards
+            .byte 0b01111100 // starter room, LURD, N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+            .byte 0b00000000 // empty room, , N, N
+
+// 2D global 2-byte array of size 21x21
+// initialized to 0b11111111 / 0b11111111 (empty, no puzzle)
+    .global minimap
+minimap:
+    .skip 882, 0xFF
+
 define(fp, x29)
 define(lr, x30)
 
@@ -11,7 +42,13 @@ define(lr, x30)
     .balign 4
     .global main
 
+
+
+// ======================================
 // ---------------- Main ----------------
+// ======================================
+
+
 
 main:
     //      function stack allocation

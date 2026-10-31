@@ -7,14 +7,18 @@ This is the section where design & archetectural decisions are explained to make
 - Map:
   - 2D static array in .bss
   - 31x31
-  - 1 byte:
-    - <8-bit int> room card index
+  - 2 bytes:
+    - byte 1:
+      - \<8-bit int> room card index
+        - initialized with max value means empty
+    - byte 2:
+      - \<8-bit int> puzzle index
+        - initialized with max value means none
 
 - Room Cards:
   - 1D array of N rooms
-  - 2 bytes:
-    - byte 1- puzzle index:
-    - byte 2- booleans & room type:
+  - 1 byte:
+    - byte 1- booleans & room type:
       - \<2-bit int> room type
       - \<boolean> conects_left
       - \<boolean> connects_up
@@ -28,6 +32,8 @@ This is the section where design & archetectural decisions are explained to make
     - Gem Room: has puzzle & a gem
     - Trap Room: has puzzle & no gem
     - room type encoding: 0 = empty, 1 = starter room, 2 = gem room, 3 = trap room
+
+- TODO: list of unused room cards to select from
 
 ## UI
 
