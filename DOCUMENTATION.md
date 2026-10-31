@@ -33,6 +33,8 @@ This is the section where design & archetectural decisions are explained to make
     - Trap Room: has puzzle & no gem
     - room type encoding: 0 = empty, 1 = starter room, 2 = gem room, 3 = trap room
 
+- TODO: list of unused room cards to select from
+
 ## UI
 
 ## I/O
