@@ -9,7 +9,9 @@ This is the section where design & archetectural decisions are explained to make
   - 31x31
   - 2 bytes:
     - \<8-bit int> room card index
+      - initialized with max value means empty
     - \<8-bit int> puzzle index
+      - initialized with max value means none
 
 - Room Cards:
   - 1D array of N rooms
