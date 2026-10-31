@@ -9,9 +9,8 @@ This is the section where design & archetectural decisions are explained to make
   - 31x31
   - 2 bytes:
     - byte 1:
-      - \<6-bit int> room card index
+      - \<8-bit int> room card index
         - initialized with max value means empty
-      - \<2-bit int> rotation
     - byte 2:
       - \<8-bit int> puzzle index
         - initialized with max value means none
