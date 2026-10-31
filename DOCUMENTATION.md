@@ -8,15 +8,18 @@ This is the section where design & archetectural decisions are explained to make
   - 2D static array in .bss
   - 31x31
   - 2 bytes:
-    - \<8-bit int> room card index
-      - initialized with max value means empty
-    - \<8-bit int> puzzle index
-      - initialized with max value means none
+    - byte 1:
+      - \<6-bit int> room card index
+        - initialized with max value means empty
+      - \<2-bit int> rotation
+    - byte 2:
+      - \<8-bit int> puzzle index
+        - initialized with max value means none
 
 - Room Cards:
   - 1D array of N rooms
   - 1 byte:
-    - byte 2- booleans & room type:
+    - byte 1- booleans & room type:
       - \<2-bit int> room type
       - \<boolean> conects_left
       - \<boolean> connects_up
