@@ -16,7 +16,6 @@ define(row,         w1)
 define(col,         w2)
 define(mimimap_ptr, x9)
 define(offset_w,    w10)
-define(offset_x,    x10)
 define(cols,        w11)
 
     .global add_to_minimap
@@ -33,7 +32,7 @@ add_to_minimap:
     mov  cols, #MINIMAP_COLS
     madd offset_w, row, cols, col
     lsl  offset_w, offset_w, #1
-    strb card_idx_w, [mimimap_ptr, offset_x, sxtw]
+    strb card_idx_w, [mimimap_ptr, offset_w, sxtw]
 
     // TODO: link puzzle
 
