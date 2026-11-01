@@ -39,6 +39,16 @@ This is the section where design & archetectural decisions are explained to make
 
 ## UI
 
+- Minimap Room UI:
+  - 3 spaces wide
+  - top:
+    - ┏━┓ / ┏┻┓
+  - middle:
+    - ━┫ / ┃ / ┣━
+    - ! (gem/trap) / X (Character) / ☆ (Exit Room) /  (Empty)
+  - bottom:
+    - ┗━┛ / ┗┳┛
+
 ## I/O
 
 ## Maze Traversal
