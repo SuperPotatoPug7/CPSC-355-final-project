@@ -7,26 +7,65 @@
 // 1D global 2-byte array of size 20
     .global room_cards
 room_cards: // TODO: design room cards
-            .byte 0b11110000 0b00000001 // Down, Up, Right, Left / Starter Room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
-            .byte 0b00000000 0b00000000 //  / empty room
+            .byte 0b11110000 
+            .byte 0b00000001 // Down, Up, Right, Left / Starter Room
+
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
+            
+            .byte 0b00000000 
+            .byte 0b00000000 //  / empty room
 
 // 2D global 2-byte array of size 21x21
 // initialized to 0b11111111 / 0b11111111 (empty, no puzzle)
@@ -54,6 +93,8 @@ main:
     //      function stack allocation
     stp fp, lr, [sp, #-16]!
     mov fp, sp
+
+    bl init_minimap // initializes starter room
 
     // TODO
 

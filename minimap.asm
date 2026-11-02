@@ -72,7 +72,10 @@ init_minimap:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    // TODO
+    mov w0, #0
+    mov w1, #5
+    mov w1, #5
+    bl add_to_minimap
 
     //      resetting
     ldp fp, lr, [sp], #16
