@@ -4,8 +4,8 @@ define(fp, x29)
 define(lr, x30)
 
 // constants
-MINIMAP_ROWS = 11
-MINIMAP_COLS = 11
+MINIMAP_ROWS = 7
+MINIMAP_COLS = 7
 
 // Bit positions in room_cards Byte 0 (0b11110000)
 BIT_LEFT  = 7
@@ -31,7 +31,7 @@ character_str: .string      "X"
 exit_str: .string           "☆"
 empty_str: .string          " "
 
-border_h: .string           "##############################################\n"
+border_h: .string           "#####################################\n"
 border_l:.string            "#"
 border_r:.string            "#\n"
 
@@ -86,8 +86,11 @@ init_minimap:
     mov fp, sp
 
     mov w0, #0
-    mov w1, #5
-    mov w1, #5
+    mov w9, MINIMAP_ROWS
+    mov w10, #2
+    udiv w1, w9, w10
+    mov w9, MINIMAP_COLS
+    udiv w2, w9, w10
     bl add_to_minimap
 
     //      resetting
@@ -124,11 +127,87 @@ render_minimap:
     ldr x0, =border_h
     bl printf
 
-    // TODO: loop for # rows
-    //      TODO: loop for # cols, printing L & R border as well
-    //          TODO: pass 1- print upper room ascii
-    //          TODO: pass 2- print center room ascii
-    //          TODO: pass 3- print lower room ascii
+    mov r_row, #0
+row_loop:
+    cmp r_row, #MINIMAP_ROWS
+    b.ge row_loop_done
+
+    // Each row requires 3 passes: 0 = top, 1 = middle, 2 = bottom
+    mov r_pass, #0
+pass_loop:
+    cmp r_pass, #3
+    b.ge pass_loop_done
+
+    // Print left border '#'
+    ldr x0, =border_l
+    bl printf
+
+    // --- 3. Loop through Minimap Columns ---
+    mov r_col, #0
+col_loop:
+    cmp r_col, #MINIMAP_COLS
+    b.ge col_loop_done
+
+    // Calculate byte offset: ((r_row * MINIMAP_COLS) + r_col) * 2
+    mov w9, #MINIMAP_COLS
+    madd w10, r_row, w9, r_col
+    lsl w10, w10, #1
+
+    // Load room_card_index (Byte 0 of minimap cell)
+    ldrb w11, [r_map_base, w10, sxtw]
+
+    // Check if cell is empty (0xFF)
+    cmp w11, #0xFF
+    b.ne load_room_card
+
+    // Empty cell: print 5 spaces and continue to next column
+    ldr x0, =blank_room_row
+    bl printf
+    b next_col
+
+load_room_card:
+    // Calculate room_cards offset: card_idx * 2
+    lsl w11, w11, #1
+    ldrb r_byte0, [r_card_base, w11, sxtw]      // Byte 0: connection booleans
+    add w11, w11, #1
+    ldrb r_byte1, [r_card_base, w11, sxtw]      // Byte 1: room type
+
+    // Route based on current pass (0, 1, or 2)
+    cmp r_pass, #0
+    b.eq render_pass_0
+    cmp r_pass, #1
+    b.eq render_pass_1
+    b render_pass_2
+
+// --- Pass 0: Upper Room ASCII ---
+render_pass_0:
+    // TODO
+
+// --- Pass 1: Center Room ASCII (Left + Icon + Right) ---
+render_pass_1:
+    // TODO
+
+// --- Pass 2: Lower Room ASCII ---
+render_pass_2:
+    // TODO
+
+next_col:
+    add r_col, r_col, #1
+    b col_loop
+
+col_loop_done:
+    // Print right border '#' and newline
+    ldr x0, =border_r
+    bl printf
+
+    add r_pass, r_pass, #1
+    b pass_loop
+
+pass_loop_done:
+    add r_row, r_row, #1
+    b row_loop
+
+row_loop_done:
 
     // print lower border
     ldr x0, =border_h

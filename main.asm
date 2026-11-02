@@ -67,11 +67,11 @@ room_cards: // TODO: design room cards
             .byte 0b00000000 
             .byte 0b00000000 //  / empty room
 
-// 2D global 2-byte array of size 21x21
+// 2D global 2-byte array of size 7x7
 // initialized to 0b11111111 / 0b11111111 (empty, no puzzle)
     .global minimap
 minimap:
-    .skip 882, 0xFF
+    .skip 98, 0xFF
 
 define(fp, x29)
 define(lr, x30)
