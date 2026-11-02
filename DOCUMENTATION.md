@@ -6,7 +6,7 @@ This is the section where design & archetectural decisions are explained to make
 
 - Map:
   - 2D static array in .bss
-  - 31x31
+  - 7x7
   - 2 bytes:
     - byte 1:
       - \<8-bit int> room card index
@@ -38,6 +38,16 @@ This is the section where design & archetectural decisions are explained to make
 - TODO: list of unused room cards to select from
 
 ## UI
+
+- Minimap Room UI:
+  - 3 spaces wide
+  - top:
+    - ┏━┓ / ┏┻┓
+  - middle:
+    - ━┫ / ┃ / ┣━
+    - ✧ (Gem Room) / ! (Trap Room) / X (Character) / ☆ (Exit Room) /  (Empty)
+  - bottom:
+    - ┗━┛ / ┗┳┛
 
 ## I/O
 
