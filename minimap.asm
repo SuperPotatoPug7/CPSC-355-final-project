@@ -219,7 +219,7 @@ pass_1_print_left:
     b.eq if_icon_trap
     cmp r_room_type, #4
     b.eq if_icon_exit
-    ldr x0, =empty_str // (starter room & empty room have the same icon)
+    ldr x0, =empty_str // (starter room & empty room don't have an icon)
     b pass_1_print_icon
 if_icon_gem:
     ldr x0, =gem_str
