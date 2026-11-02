@@ -201,7 +201,46 @@ pass_0_print:
 
 // --- Pass 1: Center Room ASCII (Left + Icon + Right) ---
 render_pass_1:
-    // TODO
+    // 1a. Left connection
+    tbz r_booleans, #7, pass_1_no_left
+    ldr x0, =left_connect_str
+    b pass_1_print_left
+pass_1_no_left:
+    ldr x0, =left_str
+pass_1_print_left:
+    bl printf
+
+    // 1b. Center icon based on room type
+    // 0 = empty, 1 = starter, 2 = gem, 3 = trap, 4 = exit
+    // TODO: override icon if player in room
+    cmp r_room_type, #2
+    b.eq if_icon_gem
+    cmp r_room_type, #3
+    b.eq if_icon_trap
+    cmp r_room_type, #4
+    b.eq if_icon_exit
+    ldr x0, =empty_str // (starter room & empty room have the same icon)
+    b pass_1_print_icon
+if_icon_gem:
+    ldr x0, =gem_str
+    b pass_1_print_icon
+if_icon_trap:
+    ldr x0, =trap_str
+    b pass_1_print_icon
+if_icon_exit:
+    ldr x0, =exit_str
+pass_1_print_icon:
+    bl printf
+
+    // 1c. Right wall/connection
+    tbz r_booleans, #5, pass_1_no_right
+    ldr x0, =right_connect_str
+    b pass_1_print_right
+pass_1_no_right:
+    ldr x0, =right_str
+pass_1_print_right:
+    bl printf
+    b next_col
 
 // --- Pass 2: Lower Room ASCII ---
 render_pass_2:
