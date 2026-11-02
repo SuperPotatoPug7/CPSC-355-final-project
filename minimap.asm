@@ -75,6 +75,7 @@ add_to_minimap:
 // Function:    initializes the minimap with the starter room in the center
 // Input:       void
 // Output:      void
+    .global init_minimap
 init_minimap:
     //      function stack allocation
     stp fp, lr, [sp, #-16]!
@@ -137,6 +138,7 @@ define(r_room_type,     w25)
 // Function:    Renders the minimap
 // Input:       void
 // Output:      void
+    .global render_minimap
 render_minimap:
     //      Function stack allocation
     stp fp, lr, [sp, #-64]!
