@@ -46,7 +46,7 @@ This is the section where design & archetectural decisions are explained to make
 ## UI
 
 - Minimap Room UI:
-  - 3 spaces wide
+  - each room is 5 characters wide & 3 lines tall
   - top:
     - ┏━┓ / ┏┻┓
   - middle:
