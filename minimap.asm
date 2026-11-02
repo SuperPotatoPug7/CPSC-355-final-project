@@ -4,7 +4,14 @@ define(fp, x29)
 define(lr, x30)
 
 // constants
-MINIMAP_COLS = 21
+MINIMAP_ROWS = 11
+MINIMAP_COLS = 11
+
+// Bit positions in room_cards Byte 0 (0b11110000)
+BIT_LEFT  = 7
+BIT_UP    = 6
+BIT_RIGHT = 5
+BIT_DOWN  = 4
 
 // minimap output strings
 up_str: .string             " ┏━┓ "
@@ -15,6 +22,8 @@ right_str: .string             "┃ "
 right_connect_str: .string     "┣━"
 down_str: .string           " ┗━┛ "
 down_connect_str: .string   " ┗┳┛ "
+
+blank_room_row: .string     "     "
 
 gem_str: .string            "✧"
 trap_str: .string           "!"
@@ -85,14 +94,27 @@ init_minimap:
     mov w0, #0
     ret
 
+define(r_row,       w19)
+define(r_col,       w20)
+define(r_pass,      w21)
+define(r_map_base,  x22)
+define(r_card_base, x23)
+define(r_byte0,     w24)
+define(r_byte1,     w25)
+
 // ---------------- Render Minimap ----------------
 // Function:    Renders the minimap
 // Input:       void
 // Output:      void
 render_minimap:
-    //      function stack allocation
-    stp fp, lr, [sp, #-16]!
+    //      Function stack allocation
+    stp fp, lr, [sp, #-64]!
     mov fp, sp
+    // Callee-saved registers
+    stp x19, x20, [sp, #16]
+    stp x21, x22, [sp, #32]
+    stp x23, x24, [sp, #48]
+    str x25, [sp, #56]
 
     // TODO: print upper border
 
@@ -104,7 +126,11 @@ render_minimap:
 
     // TODO: print lower border
 
-    //      resetting
-    ldp fp, lr, [sp], #16
+    //      Resetting
+    ldr x25, [sp, #56]
+    ldp x23, x24, [sp, #48]
+    ldp x21, x22, [sp, #32]
+    ldp x19, x20, [sp, #16]
+    ldp fp, lr, [sp], #64
     mov w0, #0
     ret
