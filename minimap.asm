@@ -22,6 +22,9 @@ character_str: .string      "X"
 exit_str: .string           "☆"
 empty_str: .string          " "
 
+border_h: .string           "##############################################"
+border_v:.string            "#"
+
     .text
     .balign 4
 
@@ -91,7 +94,15 @@ render_minimap:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    // TODO
+    // TODO: print upper border
+
+    // TODO: loop for # rows
+    //      TODO: loop for # cols, printing L & R border as well
+    //          TODO: pass 1- print upper room ascii
+    //          TODO: pass 2- print center room ascii
+    //          TODO: pass 3- print lower room ascii
+
+    // TODO: print lower border
 
     //      resetting
     ldp fp, lr, [sp], #16
