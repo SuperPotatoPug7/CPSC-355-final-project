@@ -79,6 +79,7 @@ init_minimap:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
+    // finds center of minimap & adds starter room  
     mov w0, #0
     mov w9, MINIMAP_ROWS
     mov w10, #2
@@ -125,22 +126,31 @@ render_minimap:
     ldr x0, =border_h
     bl printf
 
+    // the printing structure is three nested loops:
+    // -> row loop (N = rows)
+    //      -> pass loop (N = 3)
+    //          -> colunm loop (N = colunms)
+    //              -> if pass = 0: print top of room
+    //              -> if pass = 1: print center of room
+    //              -> if pass = 2: print bottom of room
+
+// --- Row Loop ---
     mov r_row, #0
 row_loop:
     cmp r_row, #MINIMAP_ROWS
     b.ge row_loop_done
 
-    // Each row requires 3 passes: 0 = top, 1 = middle, 2 = bottom
+// --- Pass Loop ---
     mov r_pass, #0
 pass_loop:
     cmp r_pass, #3
     b.ge pass_loop_done
 
-    // Print left border '#'
+    // Print left border
     ldr x0, =border_l
     bl printf
 
-    // --- 3. Loop through Minimap Columns ---
+// --- Colunm Loop ---
     mov r_col, #0
 col_loop:
     cmp r_col, #MINIMAP_COLS
@@ -209,7 +219,7 @@ next_col:
     b col_loop
 
 col_loop_done:
-    // Print right border '#' and newline
+    // Print right border
     ldr x0, =border_r
     bl printf
 
