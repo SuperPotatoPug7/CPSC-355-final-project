@@ -95,6 +95,7 @@ main:
     mov fp, sp
 
     bl init_minimap // initializes starter room
+    bl render_minimap // (test) renders minimap
 
     // TODO
 

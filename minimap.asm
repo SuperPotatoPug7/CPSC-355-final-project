@@ -31,8 +31,9 @@ character_str: .string      "X"
 exit_str: .string           "☆"
 empty_str: .string          " "
 
-border_h: .string           "##############################################"
-border_v:.string            "#"
+border_h: .string           "##############################################\n"
+border_l:.string            "#"
+border_r:.string            "#\n"
 
     .text
     .balign 4
@@ -116,7 +117,12 @@ render_minimap:
     stp x23, x24, [sp, #48]
     str x25, [sp, #56]
 
-    // TODO: print upper border
+    ldr r_map_base, =minimap
+    ldr r_card_base, =room_cards
+
+    // print upper border
+    ldr x0, =border_h
+    bl printf
 
     // TODO: loop for # rows
     //      TODO: loop for # cols, printing L & R border as well
@@ -124,7 +130,9 @@ render_minimap:
     //          TODO: pass 2- print center room ascii
     //          TODO: pass 3- print lower room ascii
 
-    // TODO: print lower border
+    // print lower border
+    ldr x0, =border_h
+    bl printf
 
     //      Resetting
     ldr x25, [sp, #56]
