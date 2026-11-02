@@ -240,7 +240,21 @@ pass_1_print_left:
 
     // 1b. Center icon based on room type
     // 0 = empty, 1 = starter, 2 = gem, 3 = trap, 4 = exit
-    // TODO: override icon if player in room
+
+    // check if player in room, print player icon if so
+    ldr x9, =player_x
+    ldr x10, =player_y
+    ldr w11, [x9]
+    ldr w12, [x10]
+    cmp r_row, w11
+    b.ne check_room_type
+    cmp r_col, w12
+    b.ne check_room_type
+    ldr x0, =character_str
+    b pass_1_print_icon
+
+check_room_type:
+    // else, print room icon
     cmp r_room_type, #2
     b.eq if_icon_gem
     cmp r_room_type, #3
@@ -249,6 +263,7 @@ pass_1_print_left:
     b.eq if_icon_exit
     ldr x0, =empty_str // (starter room & empty room don't have an icon)
     b pass_1_print_icon
+
 if_icon_gem:
     ldr x0, =gem_str
     b pass_1_print_icon
