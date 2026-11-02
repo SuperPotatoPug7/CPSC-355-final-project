@@ -36,13 +36,13 @@ border_r:.string            "#\n"
 // ---------------- Minimap Controller ----------------
 // ====================================================
 
+
 define(card_idx_w,  w0)
 define(row,         w1)
 define(col,         w2)
 define(mimimap_ptr, x9)
 define(offset_w,    w10)
 define(cols,        w11)
-
 // ---------------- Add To Minimap ----------------
 // Function:    adds a room to the minimap, connecting it to the player's room
 // Input:       w0: card index, w1: minimap row, w2: minimap colunm
@@ -70,6 +70,7 @@ add_to_minimap:
     ldp fp, lr, [sp], #16
     ret
 
+
 // ---------------- Init Minimap ----------------
 // Function:    initializes the minimap with the starter room in the center
 // Input:       void
@@ -80,26 +81,50 @@ init_minimap:
     mov fp, sp
 
     // find center of minimap
-    mov w0, #0
     mov w9, MINIMAP_ROWS
     mov w10, #2
-    udiv w1, w9, w10
+    udiv w0, w9, w10
     mov w9, MINIMAP_COLS
-    udiv w2, w9, w10
+    udiv w1, w9, w10
 
     // put player location in center
-    ldr x10, =player_x
-    str w1, [x10]
-    ldr x10, =player_y
-    str w2, [x10]
+    bl set_player_pos
 
     // add starter room to minimap in center
+    mov w2, w1
+    mov w1, w0
+    mov w0, #0
     bl add_to_minimap
 
     //      resetting
     ldp fp, lr, [sp], #16
     mov w0, #0
     ret
+
+
+// ---------------- Set Player Pos ----------------
+// Function:    Updates the player's coordinates
+// Input:       w0: minimap row, w1: minimap colunm
+// Output:      void
+    .global set_player_pos
+set_player_pos:
+    //      Function stack allocation
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    ldr x9, =player_x
+    ldr x10, =player_y
+    strb w0, [x9]
+    strb w1, [x10]
+
+    //      Resetting
+    ldp fp, lr, [sp], #16
+    ret
+
+// ====================================================
+// ---------------- Minimap Renderer ----------------
+// ====================================================
+
 
 define(r_row,       w19)
 define(r_col,       w20)
@@ -108,11 +133,6 @@ define(r_map_base,  x22)
 define(r_card_base, x23)
 define(r_booleans,     w24)
 define(r_room_type,     w25)
-
-// ====================================================
-// ---------------- Minimap Renderer ----------------
-// ====================================================
-
 // ---------------- Render Minimap ----------------
 // Function:    Renders the minimap
 // Input:       void
