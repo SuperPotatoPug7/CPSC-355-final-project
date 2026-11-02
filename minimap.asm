@@ -36,6 +36,10 @@ define(mimimap_ptr, x9)
 define(offset_w,    w10)
 define(cols,        w11)
 
+// ---------------- Add To Minimap ----------------
+// Function:    adds a room to the minimap, connecting it to the player's room
+// Input:       w0: card index, w1: minimap row, w2: minimap colunm
+// Output:      void
     .global add_to_minimap
 add_to_minimap:
     stp fp, lr, [sp, #-16]!
@@ -57,4 +61,36 @@ add_to_minimap:
     // TODO: update card avaliability
 
     ldp fp, lr, [sp], #16
+    ret
+
+// ---------------- Init Minimap ----------------
+// Function:    initializes the minimap with the starter room in the center
+// Input:       void
+// Output:      void
+init_minimap:
+    //      function stack allocation
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    // TODO
+
+    //      resetting
+    ldp fp, lr, [sp], #16
+    mov w0, #0
+    ret
+
+// ---------------- Render Minimap ----------------
+// Function:    Renders the minimap
+// Input:       void
+// Output:      void
+render_minimap:
+    //      function stack allocation
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    // TODO
+
+    //      resetting
+    ldp fp, lr, [sp], #16
+    mov w0, #0
     ret
