@@ -7,12 +7,6 @@ define(lr, x30)
 MINIMAP_ROWS = 7
 MINIMAP_COLS = 7
 
-// Bit positions in room_cards Byte 0 (0b11110000)
-BIT_LEFT  = 7
-BIT_UP    = 6
-BIT_RIGHT = 5
-BIT_DOWN  = 4
-
 // minimap output strings
 up_str: .string             " ┏━┓ "
 up_connect_str: .string     " ┏┻┓ "
@@ -103,8 +97,8 @@ define(r_col,       w20)
 define(r_pass,      w21)
 define(r_map_base,  x22)
 define(r_card_base, x23)
-define(r_byte0,     w24)
-define(r_byte1,     w25)
+define(r_booleans,     w24)
+define(r_room_type,     w25)
 
 // ---------------- Render Minimap ----------------
 // Function:    Renders the minimap
@@ -168,9 +162,9 @@ col_loop:
 load_room_card:
     // Calculate room_cards offset: card_idx * 2
     lsl w11, w11, #1
-    ldrb r_byte0, [r_card_base, w11, sxtw]      // Byte 0: connection booleans
+    ldrb r_booleans, [r_card_base, w11, sxtw]      // Byte 0: connection booleans
     add w11, w11, #1
-    ldrb r_byte1, [r_card_base, w11, sxtw]      // Byte 1: room type
+    ldrb r_room_type, [r_card_base, w11, sxtw]      // Byte 1: room type
 
     // Route based on current pass (0, 1, or 2)
     cmp r_pass, #0
@@ -181,7 +175,15 @@ load_room_card:
 
 // --- Pass 0: Upper Room ASCII ---
 render_pass_0:
-    // TODO
+    // test the up connect bit, branch & print accordingly
+    tbz r_booleans, #6, pass_0_no_conn
+    ldr x0, =up_connect_str
+    b pass_0_print
+pass_0_no_conn:
+    ldr x0, =up_str
+pass_0_print:
+    bl printf
+    b next_col
 
 // --- Pass 1: Center Room ASCII (Left + Icon + Right) ---
 render_pass_1:
@@ -189,7 +191,14 @@ render_pass_1:
 
 // --- Pass 2: Lower Room ASCII ---
 render_pass_2:
-    // TODO
+    // test the down connect bit, branch & print accordingly
+    tbz r_booleans, #4, pass_2_no_conn
+    ldr x0, =down_connect_str
+    b pass_2_print
+pass_2_no_conn:
+    ldr x0, =down_str
+pass_2_print:
+    bl printf
 
 next_col:
     add r_col, r_col, #1
