@@ -36,13 +36,13 @@ border_r:.string            "#\n"
 // ---------------- Minimap Controller ----------------
 // ====================================================
 
+
 define(card_idx_w,  w0)
 define(row,         w1)
 define(col,         w2)
 define(mimimap_ptr, x9)
 define(offset_w,    w10)
 define(cols,        w11)
-
 // ---------------- Add To Minimap ----------------
 // Function:    adds a room to the minimap, connecting it to the player's room
 // Input:       w0: card index, w1: minimap row, w2: minimap colunm
@@ -70,6 +70,7 @@ add_to_minimap:
     ldp fp, lr, [sp], #16
     ret
 
+
 // ---------------- Init Minimap ----------------
 // Function:    initializes the minimap with the starter room in the center
 // Input:       void
@@ -79,19 +80,51 @@ init_minimap:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    // finds center of minimap & adds starter room  
-    mov w0, #0
+    // find center of minimap
     mov w9, MINIMAP_ROWS
     mov w10, #2
-    udiv w1, w9, w10
+    udiv w0, w9, w10
     mov w9, MINIMAP_COLS
-    udiv w2, w9, w10
+    udiv w1, w9, w10
+
+    // put player location in center
+    bl set_player_pos
+
+    // add starter room to minimap in center
+    mov w2, w1
+    mov w1, w0
+    mov w0, #0
     bl add_to_minimap
 
     //      resetting
     ldp fp, lr, [sp], #16
     mov w0, #0
     ret
+
+
+// ---------------- Set Player Pos ----------------
+// Function:    Updates the player's coordinates
+// Input:       w0: minimap row, w1: minimap colunm
+// Output:      void
+    .global set_player_pos
+set_player_pos:
+    //      Function stack allocation
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    ldr x9, =player_x
+    ldr x10, =player_y
+    strb w0, [x9]
+    strb w1, [x10]
+
+    //      Resetting
+    ldp fp, lr, [sp], #16
+    ret
+
+// ====================================================
+// ---------------- Minimap Renderer ----------------
+// ====================================================
+
 
 define(r_row,       w19)
 define(r_col,       w20)
@@ -100,11 +133,6 @@ define(r_map_base,  x22)
 define(r_card_base, x23)
 define(r_booleans,     w24)
 define(r_room_type,     w25)
-
-// ====================================================
-// ---------------- Minimap Renderer ----------------
-// ====================================================
-
 // ---------------- Render Minimap ----------------
 // Function:    Renders the minimap
 // Input:       void
@@ -212,7 +240,21 @@ pass_1_print_left:
 
     // 1b. Center icon based on room type
     // 0 = empty, 1 = starter, 2 = gem, 3 = trap, 4 = exit
-    // TODO: override icon if player in room
+
+    // check if player in room, print player icon if so
+    ldr x9, =player_x
+    ldr x10, =player_y
+    ldr w11, [x9]
+    ldr w12, [x10]
+    cmp r_row, w11
+    b.ne check_room_type
+    cmp r_col, w12
+    b.ne check_room_type
+    ldr x0, =character_str
+    b pass_1_print_icon
+
+check_room_type:
+    // else, print room icon
     cmp r_room_type, #2
     b.eq if_icon_gem
     cmp r_room_type, #3
@@ -221,6 +263,7 @@ pass_1_print_left:
     b.eq if_icon_exit
     ldr x0, =empty_str // (starter room & empty room don't have an icon)
     b pass_1_print_icon
+
 if_icon_gem:
     ldr x0, =gem_str
     b pass_1_print_icon

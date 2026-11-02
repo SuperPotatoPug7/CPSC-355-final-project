@@ -2,7 +2,7 @@
 
 This is the section where design & archetectural decisions are explained to make maintenence & collaboration easier.
 
-## Data Structures
+## Global Data Structures
 
 - Map:
   - 2D static array in .bss
@@ -37,10 +37,16 @@ This is the section where design & archetectural decisions are explained to make
 
 - TODO: list of unused room cards to select from
 
+## Global Variables
+
+- <4-byte int> player_x
+
+- <4-byte int> player_y
+
 ## UI
 
 - Minimap Room UI:
-  - 3 spaces wide
+  - each room is 5 characters wide & 3 lines tall
   - top:
     - ┏━┓ / ┏┻┓
   - middle:

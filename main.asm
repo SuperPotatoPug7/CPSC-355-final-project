@@ -73,6 +73,14 @@ room_cards: // TODO: design room cards
 minimap:
     .skip 98, 0xFF
 
+// global 4-byte ints: player x & y locations
+    .global player_x
+    .global player_y
+player_x:
+    .word 0
+player_y:
+    .word 0
+
 define(fp, x29)
 define(lr, x30)
 
