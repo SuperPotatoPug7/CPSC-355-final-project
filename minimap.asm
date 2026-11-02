@@ -1,8 +1,26 @@
+    .data
+
 define(fp, x29)
 define(lr, x30)
 
-// constant
+// constants
 MINIMAP_COLS = 21
+
+// minimap output strings
+up_str: .string             " ┏━┓ "
+up_connect_str: .string     " ┏┻┓ "
+left_str: .string           " ┃"
+left_connect_str: .string   "━┫"
+right_str: .string             "┃ "
+right_connect_str: .string     "┣━"
+down_str: .string           " ┗━┛ "
+down_connect_str: .string   " ┗┳┛ "
+
+gem_str: .string            "✧"
+trap_str: .string           "!"
+character_str: .string      "X"
+exit_str: .string           "☆"
+empty_str: .string          " "
 
     .text
     .balign 4

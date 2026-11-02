@@ -45,7 +45,7 @@ This is the section where design & archetectural decisions are explained to make
     - ┏━┓ / ┏┻┓
   - middle:
     - ━┫ / ┃ / ┣━
-    - ! (gem/trap) / X (Character) / ☆ (Exit Room) /  (Empty)
+    - ✧ (Gem Room) / ! (Trap Room) / X (Character) / ☆ (Exit Room) /  (Empty)
   - bottom:
     - ┗━┛ / ┗┳┛
 

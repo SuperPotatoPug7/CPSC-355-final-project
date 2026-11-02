@@ -7,7 +7,7 @@
 // 1D global 2-byte array of size 20
     .global room_cards
 room_cards: // TODO: design room cards
-            .byte 0b00001111 0b00000001 // Down, Up, Right, Left / Starter Room
+            .byte 0b11110000 0b00000001 // Down, Up, Right, Left / Starter Room
             .byte 0b00000000 0b00000000 //  / empty room
             .byte 0b00000000 0b00000000 //  / empty room
             .byte 0b00000000 0b00000000 //  / empty room
