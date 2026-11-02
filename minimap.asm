@@ -79,13 +79,21 @@ init_minimap:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    // finds center of minimap & adds starter room  
+    // find center of minimap
     mov w0, #0
     mov w9, MINIMAP_ROWS
     mov w10, #2
     udiv w1, w9, w10
     mov w9, MINIMAP_COLS
     udiv w2, w9, w10
+
+    // put player location in center
+    ldr x10, =player_x
+    str w1, [x10]
+    ldr x10, =player_y
+    str w2, [x10]
+
+    // add starter room to minimap in center
     bl add_to_minimap
 
     //      resetting
