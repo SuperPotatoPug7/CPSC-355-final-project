@@ -6,66 +6,71 @@
 // holds room data
 // 1D global 2-byte array of size 20
     .global room_cards
-room_cards: // TODO: design room cards
+room_cards:
+            // --- 0: STARTER ROOM (1) ---
             .byte 0b11110000 
-            .byte 0b00000001 // Down, Up, Right, Left / Starter Room
+            .byte 0b00000001 // 0: L, U, R, D (4-Way)      / Starter Room
 
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            // --- 1 to 6: EMPTY ROOMS (6) ---
+            .byte 0b10100000 
+            .byte 0b00000000 // 1: L, R (Horizontal)       / Empty Room
 
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b01010000 
+            .byte 0b00000000 // 2: U, D (Vertical)         / Empty Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b10100000 
+            .byte 0b00000000 // 3: L, R (Horizontal)    / Empty Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b01010000 
+            .byte 0b00000000 // 4: U, D (Vertical)    / Empty Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b11010000 
+            .byte 0b00000000 // 5: L, U, D (T-Junction)    / Empty Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b01110000 
+            .byte 0b00000000 // 6: U, R, D (T-Junction)    / Empty Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            // --- 7 to 14: GEM ROOMS (8) ---
+            .byte 0b11001100 
+            .byte 0b00000010 // 7: L, U (Corner)           / Gem Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b01101100 
+            .byte 0b00000010 // 8: U, R (Corner)           / Gem Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b00111100 
+            .byte 0b00000010 // 9: R, D (Corner)           / Gem Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b10011100 
+            .byte 0b00000010 // 10: L, D (Corner)          / Gem Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b11101100 
+            .byte 0b00000010 // 11: L, U, R (T-Junction)   / Gem Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b01111100 
+            .byte 0b00000010 // 12: U, R, D (T-Junction)   / Gem Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b00011100 
+            .byte 0b00000010 // 13: D (Dead End)  / Gem Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b00011100 
+            .byte 0b00000010 // 14: D (Dead End)   / Gem Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            // --- 15 to 18: TRAP ROOMS (4) ---
+            .byte 0b11101000 
+            .byte 0b00000011 // 15: L, U, R (T-Junction)      / Trap Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b01111000 
+            .byte 0b00000011 // 16: U, R, D (T-Junction)      / Trap Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b11111000 
+            .byte 0b00000011 // 17: L, U, R, D (4-Way)     / Trap Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            .byte 0b11111000 
+            .byte 0b00000011 // 18: L, U, R, D (4-Way)     / Trap Room
             
-            .byte 0b00000000 
-            .byte 0b00000000 //  / empty room
+            // --- 19: EXIT ROOM (1) ---
+            .byte 0b00011000 
+            .byte 0b00000100 // 19: D (Dead End)     / Exit Room
 
 // 2D global 2-byte array of size 7x7
 // initialized to 0b11111111 / 0b11111111 (empty, no puzzle)
