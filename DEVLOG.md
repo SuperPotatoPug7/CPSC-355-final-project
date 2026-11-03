@@ -3,9 +3,9 @@
 ## V0.0- Functioning Beta - TODO
 
 - Room generation  - TODO
-- Map  - TODO
+- Map
 - Basic UI:  - TODO
-  - Minimap  - TODO
+  - Minimap
   - Room Preview  - TODO
 - Win Condition  - TODO
 
