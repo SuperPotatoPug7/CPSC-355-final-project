@@ -46,12 +46,13 @@ define(cols, w15)
 define(saved_row, w19)
 define(saved_col, w20)
 define(card_flags_ptr, x21)
+define(c_i, x22)
     .global connect_room
 connect_room:
     stp fp, lr, [sp, #-16]!
-    stp x19, x20, [sp, #-16]!
-    str x21, [sp, #-16]!
     mov fp, sp
+    stp x19, x20, [sp, #-16]!
+    stp x21, x22, [sp, #-16]!
 
     // Save input coordinates across function calls
     mov saved_row, w0
@@ -67,9 +68,30 @@ connect_room:
     lsl offset_w, card_index, #1
     add card_flags_ptr, room_cards_ptr, offset_w, uxtw
 
-    // TODO: test & rotate x3
+// ------ test & rotate x3 ------
 
-    ldr x21, [sp], #16
+    mov c_i, #0
+connect_loop:
+
+    // test
+    mov w0, saved_row
+    mov w1, saved_col
+    bl  room_is_connected
+    cmp w0, #1
+    b.eq connect_done
+
+    // rotate
+    ldrb w0, [card_flags_ptr]
+    bl   rotate
+    strb w0, [card_flags_ptr]
+
+    // increment & loop
+    add c_i, c_i, #1
+    cmp c_i, #3
+    b.lt connect_loop
+
+connect_done:
+    ldp x21, x22, [sp], #16
     ldp x19, x20, [sp], #16
     ldp fp, lr, [sp], #16
     ret
