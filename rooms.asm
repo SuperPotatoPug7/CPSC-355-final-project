@@ -19,9 +19,10 @@ define(gr_room_card_ptr, x0)
 define(gr_success, w1)
 define(gr_minimap_ptr, x9)
 define(gr_room_cards_ptr, x10)
-define(gr_cols, w10)
-define(gr_offset_w, w11)
+define(gr_cols, w11)
+define(gr_offset_w, w12)
 define(gr_card_index, w13)
+    .global get_room_pointer
 get_room_pointer:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
@@ -32,16 +33,17 @@ get_room_pointer:
 
     // Get target's room_card_index at Byte 0 of minimap[i][j]
     mov  gr_cols, #MINIMAP_COLS
-    madd gr_offset_w, gr_row, cols, gr_col
+    madd gr_offset_w, gr_row, gr_cols, gr_col
     lsl  gr_offset_w, gr_offset_w, #1
-    ldrb card_index, [gr_minimap_ptr, gr_offset_w, sxtw]
+    ldrb gr_card_index, [gr_minimap_ptr, gr_offset_w, sxtw]
 
     // if target tile is empty (0xFF), not enterable
-    cmp card_index, #0b11111111
+    cmp gr_card_index, #0b11111111
     b.eq gr_is_empty_room
 
-    lsl offset_w, card_index, #1
-    add gr_room_card_ptr, room_cards_ptr, offset_w, uxtw
+    // get room card pointer using room card index
+    lsl gr_offset_w, gr_card_index, #1
+    add gr_room_card_ptr, gr_room_cards_ptr, gr_offset_w, uxtw
     mov gr_success, #1
     b gr_done
 
@@ -81,15 +83,9 @@ connect_room:
     mov saved_row, w0
     mov saved_col, w1
 
-    // get room flags pointer
-    ldr minimap_ptr, =minimap
-    ldr room_cards_ptr, =room_cards
-    mov cols, #MINIMAP_COLS
-    madd offset_w, saved_row, cols, saved_col
-    lsl  offset_w, offset_w, #1
-    ldrb card_index, [minimap_ptr, offset_w, sxtw]
-    lsl offset_w, card_index, #1
-    add card_flags_ptr, room_cards_ptr, offset_w, uxtw
+    // get room card pointer
+    bl get_room_pointer
+    mov card_flags_ptr, x0
 
 // ------ test & rotate x3 ------
 
