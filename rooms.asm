@@ -8,26 +8,23 @@ define(lr, x30)
     .text
     .balign 4
 
-
-// ---------------- Rotate ----------------
-// Function:    takes a byte and rotates the leftmost four bits by one
-//              (used for room rotations)
-// Input:       w0: room boolean_flags byte
-// Output:      w0: room boolean_flags byte (rotated)
-rotate:
+// ---------------- Get Room Pointer ----------------
+// Function:    Gets the room card associated with an i,j index on
+//              the minimap.
+// Input:       w0: minimap row, w1: minimap colunm
+// Output:      x0: room card pointer, w1: boolean success (0 = found, 1 = not found)
+define(gr_row, w0)
+define(gr_col, w1)
+define(gr_minimap_ptr, x9)
+define(gr_room_cards_ptr, x10)
+define(gr_cols, w10)
+define(gr_offset_w, w11)
+define(gr_cols, w12)
+get_room_pointer:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    // copy & shift left
-    and w9, w0, #0b00001111
-    lsl w10, w0, #1
-    // copy & shift right
-    and w10, w10, #0b11100000
-    lsr w11, w0, #3
-    and w11, w11, #0b00010000
-    // recombine
-    orr w0, w9, w10
-    orr w0, w0, w11
+    // TODO
 
     ldp fp, lr, [sp], #16
     ret
@@ -208,5 +205,29 @@ not_connected:
 
 done_connected:
     ldp x19, x20, [sp], #16
+    ldp fp, lr, [sp], #16
+    ret
+
+
+// ---------------- Rotate ----------------
+// Function:    takes a byte and rotates the leftmost four bits by one
+//              (used for room rotations)
+// Input:       w0: room boolean_flags byte
+// Output:      w0: room boolean_flags byte (rotated)
+rotate:
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    // copy & shift left
+    and w9, w0, #0b00001111
+    lsl w10, w0, #1
+    // copy & shift right
+    and w10, w10, #0b11100000
+    lsr w11, w0, #3
+    and w11, w11, #0b00010000
+    // recombine
+    orr w0, w9, w10
+    orr w0, w0, w11
+
     ldp fp, lr, [sp], #16
     ret
