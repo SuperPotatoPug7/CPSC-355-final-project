@@ -68,14 +68,17 @@ remove_room_avaliability:
 //              current position and enterable. (assumes the rooms are adjacent).
 // Input:       w0: minimap row, w1: minimap colunm
 // Output:      w0: boolean: 1 = True, 0 = False
-define(room_row, w0)
-define(room_col, w1)
+define(target_row, w0)
+define(target_col, w1)
+define(target_flags, w0)
 define(player_row, w9)
 define(player_col, w10)
 define(mimimap_ptr, x11)
 define(room_cards_ptr, x12)
 define(card_index, w13)
+define(offset_w,    w14)
 define(direction_bitmask, x19)
+define(player_flags, w20)
     .global room_is_connected
 room_is_connected:
     stp fp, lr, [sp, #-16]!
@@ -88,10 +91,10 @@ room_is_connected:
 
 // ------ determine if L, R, U, or D of player; set bit mask accordingly ------
 
-    cmp target_col, p_col
+    cmp target_col, player_col
     b.lt dir_left           // target_col < p_col -> left of player
     b.gt dir_right          // target_col > p_col -> right of player
-    cmp target_row, p_row
+    cmp target_row, player_row
     b.lt dir_up             // target_row < p_row -> above player
     b.gt dir_down           // target_row > p_row -> below player
     b not_connected
@@ -99,29 +102,45 @@ dir_left:
     mov direction_bitmask, #0b10000000
     b load_rooms
 dir_up:
-    mov dir_mask, #0b01000000
+    mov direction_bitmask, #0b01000000
     b load_rooms
 dir_right:
-    mov dir_mask, #0b00100000
+    mov direction_bitmask, #0b00100000
     b load_rooms
 dir_down:
-    mov dir_mask, #0b00010000
+    mov direction_bitmask, #0b00010000
 
-// ------ rotate & compare room flags w/ bitmask ------
+// ------ Get Room flags for player's room & target room ------
+load_rooms:
 
     // load minimap & room cards addresses
     ldr mimimap_ptr, =minimap
     ldr room_cards_ptr, =room_cards
 
-    // Get room_card_index at Byte 0 of minimap[i][j]
+    // Get target's room_card_index at Byte 0 of minimap[i][j]
     mov  cols, #MINIMAP_COLS
-    madd offset_w, row, cols, col
+    madd offset_w, target_row, cols, target_col
     lsl  offset_w, offset_w, #1
     ldrb card_index, [mimimap_ptr, offset_w, sxtw]
-
     // if target tile is empty (0xFF), not enterable
-    cmp card_idx, #0b11111111
+    cmp card_index, #0b11111111
     b.eq not_connected
+    // get the room_card boolean flags for the target room using the card_index
+    lsl offset_w, card_index, #1
+    ldrb target_flags, [room_cards_ptr, offset_w, uxtw]
+
+    // Get player's room's room_card_index at Byte 0 of minimap[i][j]
+    mov  cols, #MINIMAP_COLS
+    madd offset_w, player_row, cols, player_col
+    lsl  offset_w, offset_w, #1
+    ldrb card_index, [mimimap_ptr, offset_w, sxtw]
+    // get the room_card boolean flags for the player's room using the card_index
+    lsl offset_w, card_index, #1
+    ldrb player_flags, [room_cards_ptr, offset_w, uxtw]
+
+// ------ Rotate & Compare using Bitmask ------
+
+    // TODO
 
 not_connected:
     mov w0, #0
