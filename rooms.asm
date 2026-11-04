@@ -38,15 +38,39 @@ rotate:
 //              room the player is currently in
 // Input:       w0: minimap row, w1: minimap colunm
 // Output:      void
+define(minimap_ptr, x11)
+define(room_cards_ptr, x12)
+define(card_index, w13)
+define(offset_w, w14)
+define(cols, w15)
+define(saved_row, w19)
+define(saved_col, w20)
+define(card_flags_ptr, x21)
     .global connect_room
 connect_room:
     stp fp, lr, [sp, #-16]!
+    stp x19, x20, [sp, #-16]!
+    str x21, [sp, #-16]!
     mov fp, sp
 
-    // TODO: get flags
+    // Save input coordinates across function calls
+    mov saved_row, w0
+    mov saved_col, w1
+
+    // get room flags pointer
+    ldr minimap_ptr, =minimap
+    ldr room_cards_ptr, =room_cards
+    mov cols, #MINIMAP_COLS
+    madd offset_w, saved_row, cols, saved_col
+    lsl  offset_w, offset_w, #1
+    ldrb card_index, [minimap_ptr, offset_w, sxtw]
+    lsl offset_w, card_index, #1
+    add card_flags_ptr, room_cards_ptr, offset_w, uxtw
 
     // TODO: test & rotate x3
 
+    ldr x21, [sp], #16
+    ldp x19, x20, [sp], #16
     ldp fp, lr, [sp], #16
     ret
 
@@ -64,6 +88,7 @@ remove_room_avaliability:
 
     ldp fp, lr, [sp], #16
     ret
+
 
 // ---------------- Room Is Connected? ----------------
 // Function:    checks if the input room is connected to the room of the player's 
