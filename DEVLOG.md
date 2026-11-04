@@ -3,7 +3,12 @@
 ## V0.0- Functioning Beta - TODO
 
 - Room generation  - TODO
+<<<<<<< Updated upstream
 - Map  - TODO
+=======
+- Map
+- Traversal I/O - TODO
+>>>>>>> Stashed changes
 - Basic UI:  - TODO
   - Minimap  - TODO
   - Room Preview  - TODO
