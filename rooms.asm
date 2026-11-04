@@ -77,7 +77,8 @@ define(mimimap_ptr, x11)
 define(room_cards_ptr, x12)
 define(card_index, w13)
 define(offset_w,    w14)
-define(direction_bitmask, x19)
+define(cols, w15)
+define(direction_bitmask, w19)
 define(player_flags, w20)
     .global room_is_connected
 room_is_connected:
@@ -114,8 +115,10 @@ dir_down:
 load_rooms:
 
     // load minimap & room cards addresses
-    ldr mimimap_ptr, =minimap
-    ldr room_cards_ptr, =room_cards
+    ldr x9, =player_y
+    ldr player_row, [x9]
+    ldr x10, =player_x
+    ldr player_col, [x10]
 
     // Get target's room_card_index at Byte 0 of minimap[i][j]
     mov  cols, #MINIMAP_COLS
@@ -146,7 +149,7 @@ load_rooms:
 
     // AND-compare them w/ the bitmask; if they match, that means they're connected
     and target_flags, target_flags, player_flags
-    and target_flags, target_flags, dir_mask
+    and target_flags, target_flags, direction_bitmask
     cmp target_flags, #0
     mov w0, #1
     b.ne done_connected
