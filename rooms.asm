@@ -140,7 +140,16 @@ load_rooms:
 
 // ------ Rotate & Compare using Bitmask ------
 
-    // TODO
+    // rotate target room 180 degrees
+    bl rotate
+    bl rotate
+
+    // AND-compare them w/ the bitmask; if they match, that means they're connected
+    and target_flags, target_flags, player_flags
+    and target_flags, target_flags, dir_mask
+    cmp target_flags, #0
+    mov w0, #1
+    b.ne done_connected
 
 not_connected:
     mov w0, #0
