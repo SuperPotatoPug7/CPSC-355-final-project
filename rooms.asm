@@ -16,7 +16,16 @@ rotate:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    // TODO
+    // copy & shift left
+    and w9, w0, #0b00001111
+    lsl w10, w0, #1
+    // copy & shift right
+    and w10, w10, #0b11100000
+    lsr w11, w0, #3
+    and w11, w11, #0b00010000
+    // recombine
+    orr w0, w9, w10
+    orr w0, w0, w11
 
     ldp fp, lr, [sp], #16
     ret
