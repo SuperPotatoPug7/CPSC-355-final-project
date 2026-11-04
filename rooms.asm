@@ -1,5 +1,7 @@
     .data
 
+MINIMAP_COLS = 7
+
 define(fp, x29)
 define(lr, x30)
 
@@ -70,6 +72,9 @@ define(room_row, w0)
 define(room_col, w1)
 define(player_row, w9)
 define(player_col, w10)
+define(mimimap_ptr, x11)
+define(room_cards_ptr, x12)
+define(card_index, w13)
 define(direction_bitmask, x19)
     .global room_is_connected
 room_is_connected:
@@ -81,7 +86,8 @@ room_is_connected:
     ldr player_row, =player_x
     ldr player_col, =player_y
 
-    //      determine if L, R, U, or D of player; set bit mask accordingly
+// ------ determine if L, R, U, or D of player; set bit mask accordingly ------
+
     cmp target_col, p_col
     b.lt dir_left           // target_col < p_col -> left of player
     b.gt dir_right          // target_col > p_col -> right of player
@@ -101,7 +107,21 @@ dir_right:
 dir_down:
     mov dir_mask, #0b00010000
 
-    // TODO: rotate & compare room flags w/ bitmask
+// ------ rotate & compare room flags w/ bitmask ------
+
+    // load minimap & room cards addresses
+    ldr mimimap_ptr, =minimap
+    ldr room_cards_ptr, =room_cards
+
+    // Get room_card_index at Byte 0 of minimap[i][j]
+    mov  cols, #MINIMAP_COLS
+    madd offset_w, row, cols, col
+    lsl  offset_w, offset_w, #1
+    ldrb card_index, [mimimap_ptr, offset_w, sxtw]
+
+    // if target tile is empty (0xFF), not enterable
+    cmp card_idx, #0b11111111
+    b.eq not_connected
 
 not_connected:
     mov w0, #0
