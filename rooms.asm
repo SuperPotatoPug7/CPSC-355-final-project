@@ -12,19 +12,45 @@ define(lr, x30)
 // Function:    Gets the room card associated with an i,j index on
 //              the minimap.
 // Input:       w0: minimap row, w1: minimap colunm
-// Output:      x0: room card pointer, w1: boolean success (0 = found, 1 = not found)
+// Output:      x0: room card pointer, w1: boolean success (1 = found, 0 = not found)
 define(gr_row, w0)
 define(gr_col, w1)
+define(gr_room_card_ptr, x0)
+define(gr_success, w1)
 define(gr_minimap_ptr, x9)
 define(gr_room_cards_ptr, x10)
 define(gr_cols, w10)
 define(gr_offset_w, w11)
-define(gr_cols, w12)
+define(gr_card_index, w13)
 get_room_pointer:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    // TODO
+    // load minimap & room cards addresses
+    ldr gr_minimap_ptr, =minimap
+    ldr gr_room_cards_ptr, =room_cards
+
+    // Get target's room_card_index at Byte 0 of minimap[i][j]
+    mov  gr_cols, #MINIMAP_COLS
+    madd gr_offset_w, gr_row, cols, gr_col
+    lsl  gr_offset_w, gr_offset_w, #1
+    ldrb card_index, [gr_minimap_ptr, gr_offset_w, sxtw]
+
+    // if target tile is empty (0xFF), not enterable
+    cmp card_index, #0b11111111
+    b.eq gr_is_empty_room
+
+    lsl offset_w, card_index, #1
+    add gr_room_card_ptr, room_cards_ptr, offset_w, uxtw
+    mov gr_success, #1
+    b gr_done
+
+gr_is_empty_room:
+
+    mov gr_room_card_ptr, #0
+    mov gr_success, #0
+
+gr_done:
 
     ldp fp, lr, [sp], #16
     ret
