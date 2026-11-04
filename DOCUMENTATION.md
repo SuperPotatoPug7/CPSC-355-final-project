@@ -35,13 +35,17 @@ This is the section where design & archetectural decisions are explained to make
     - Trap Room: has puzzle & no gem
     - room type encoding: 0 = empty, 1 = starter room, 2 = gem room, 3 = trap room, 4 = exit room
 
-- TODO: list of unused room cards to select from
+- Avaliable Room Cards:
+  - 1d 4-byte int array
+  - the indexes of the unused rooms
 
 ## Global Variables
 
 - <4-byte int> player_x
 
 - <4-byte int> player_y
+
+- <4-byte int> num_avaliable_rooms: the current size of the avaliable_room_cards array
 
 ## UI
 
