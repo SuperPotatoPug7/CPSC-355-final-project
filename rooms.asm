@@ -136,8 +136,10 @@ room_is_connected:
     stp x19, x20, [sp, #-16]!
 
     //      load player pos
-    ldr player_row, =player_x
-    ldr player_col, =player_y
+    ldr x9, =player_y
+    ldr player_row, [x9]
+    ldr x10, =player_x
+    ldr player_col, [x10]
 
 // ------ determine if L, R, U, or D of player; set bit mask accordingly ------
 

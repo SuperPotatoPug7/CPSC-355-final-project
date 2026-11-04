@@ -123,10 +123,10 @@ set_player_pos:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    ldr x9, =player_x
-    ldr x10, =player_y
-    strb w0, [x9]
-    strb w1, [x10]
+    ldr x9, =player_y
+    ldr x10, =player_x
+    str w0, [x9]
+    str w1, [x10]
 
     //      Resetting
     ldp fp, lr, [sp], #16
