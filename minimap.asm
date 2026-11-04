@@ -254,8 +254,8 @@ pass_1_print_left:
     // 0 = empty, 1 = starter, 2 = gem, 3 = trap, 4 = exit
 
     // check if player in room, print player icon if so
-    ldr x9, =player_x
-    ldr x10, =player_y
+    ldr x9, =player_y
+    ldr x10, =player_x
     ldr w11, [x9]
     ldr w12, [x10]
     cmp r_row, w11

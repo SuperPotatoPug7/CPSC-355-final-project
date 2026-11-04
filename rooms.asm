@@ -166,10 +166,8 @@ dir_down:
 load_rooms:
 
     // load minimap & room cards addresses
-    ldr x9, =player_y
-    ldr player_row, [x9]
-    ldr x10, =player_x
-    ldr player_col, [x10]
+    ldr mimimap_ptr, =minimap
+    ldr room_cards_ptr, =room_cards
 
     // Get target's room_card_index at Byte 0 of minimap[i][j]
     mov  cols, #MINIMAP_COLS
