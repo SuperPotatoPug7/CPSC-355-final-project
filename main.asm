@@ -133,6 +133,11 @@ main:
     mov fp, sp
 
     bl init_minimap // initializes starter room
+    // (test) adds a room
+    mov w0, #19
+    mov w1, #3
+    mov w2, #4
+    bl add_to_minimap
     bl render_minimap // (test) renders minimap
 
     // TODO

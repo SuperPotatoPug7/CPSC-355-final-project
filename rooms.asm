@@ -37,13 +37,15 @@ rotate:
 // Function:    rotates a room in memory until it is connected to the
 //              room the player is currently in
 // Input:       w0: minimap row, w1: minimap colunm
-// Output:      w0: boolean: 1 = True, 0 = False
+// Output:      void
     .global connect_room
 connect_room:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    // TODO
+    // TODO: get flags
+
+    // TODO: test & rotate x3
 
     ldp fp, lr, [sp], #16
     ret
