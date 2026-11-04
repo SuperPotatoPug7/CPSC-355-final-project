@@ -67,7 +67,6 @@ define(minimap_ptr, x11)
 define(room_cards_ptr, x12)
 define(card_index, w13)
 define(offset_w, w14)
-define(cols, w15)
 define(saved_row, w19)
 define(saved_col, w20)
 define(card_flags_ptr, x21)
@@ -139,20 +138,18 @@ remove_room_avaliability:
 define(target_row, w0)
 define(target_col, w1)
 define(target_flags, w0)
-define(player_row, w9)
-define(player_col, w10)
-define(mimimap_ptr, x11)
-define(room_cards_ptr, x12)
 define(card_index, w13)
-define(offset_w,    w14)
-define(cols, w15)
+define(room_card_ptr,    w14)
 define(direction_bitmask, w19)
 define(player_flags, w20)
+define(player_row, w21)
+define(player_col, w22)
     .global room_is_connected
 room_is_connected:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
     stp x19, x20, [sp, #-16]!
+    stp x21, x22, [sp, #-16]!
 
     //      load player pos
     ldr x9, =player_y
@@ -184,30 +181,18 @@ dir_down:
 // ------ Get Room flags for player's room & target room ------
 load_rooms:
 
-    // load minimap & room cards addresses
-    ldr mimimap_ptr, =minimap
-    ldr room_cards_ptr, =room_cards
+    // get the target's room_card boolean flags
+    bl get_room_pointer
+    cbz  w1, connect_done // (exit early if empty room)
+    mov room_card_ptr, x0
+    ldrb target_flags, [room_card_ptr]
 
-    // Get target's room_card_index at Byte 0 of minimap[i][j]
-    mov  cols, #MINIMAP_COLS
-    madd offset_w, target_row, cols, target_col
-    lsl  offset_w, offset_w, #1
-    ldrb card_index, [mimimap_ptr, offset_w, sxtw]
-    // if target tile is empty (0xFF), not enterable
-    cmp card_index, #0b11111111
-    b.eq not_connected
-    // get the room_card boolean flags for the target room using the card_index
-    lsl offset_w, card_index, #1
-    ldrb target_flags, [room_cards_ptr, offset_w, uxtw]
-
-    // Get player's room's room_card_index at Byte 0 of minimap[i][j]
-    mov  cols, #MINIMAP_COLS
-    madd offset_w, player_row, cols, player_col
-    lsl  offset_w, offset_w, #1
-    ldrb card_index, [mimimap_ptr, offset_w, sxtw]
-    // get the room_card boolean flags for the player's room using the card_index
-    lsl offset_w, card_index, #1
-    ldrb player_flags, [room_cards_ptr, offset_w, uxtw]
+    // get the player's room's room_card boolean flags
+    mov w0, player_row
+    mov w1, player_col
+    bl get_room_pointer
+    mov room_card_ptr, x0
+    ldrb player_flags, [room_card_ptr]
 
 // ------ Rotate & Compare using Bitmask ------
 
@@ -226,6 +211,7 @@ not_connected:
     mov w0, #0
 
 done_connected:
+    ldp x21, x22, [sp], #16
     ldp x19, x20, [sp], #16
     ldp fp, lr, [sp], #16
     ret
