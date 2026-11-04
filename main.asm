@@ -4,6 +4,31 @@
     .data
 
 // holds room data
+// <int> the number of remaining avaliable rooms
+num_avaliable_rooms:
+            .word 20
+// 1D global int array of size 20 (holds avaliable room indexes)
+avaliable_room_cards:
+            .word 1
+            .word 2
+            .word 3
+            .word 4
+            .word 5
+            .word 6
+            .word 7
+            .word 8
+            .word 9
+            .word 10
+            .word 11
+            .word 12
+            .word 13
+            .word 14
+            .word 15
+            .word 16
+            .word 17
+            .word 18
+            .word 19
+            .word 20
 // 1D global 2-byte array of size 20
     .global room_cards
 room_cards:
