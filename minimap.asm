@@ -43,6 +43,8 @@ define(col,         w2)
 define(mimimap_ptr, x9)
 define(offset_w,    w10)
 define(cols,        w11)
+define(saved_row, w19)
+define(saved_col, w20)
 // ---------------- Add To Minimap ----------------
 // Function:    adds a room to the minimap, connecting it to the player's room
 // Input:       w0: card index, w1: minimap row, w2: minimap colunm
@@ -51,11 +53,14 @@ define(cols,        w11)
 add_to_minimap:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
+    stp x19, x20, [sp, #-16]!
+
+    // Save input coordinates across function calls
+    mov saved_row, w1
+    mov saved_col, w2
 
     // load minimap address
     ldr mimimap_ptr, =minimap
-
-    // TODO: calculate rotation
 
     // Store room_card_index at Byte 0 of minimap[i][j]
     mov  cols, #MINIMAP_COLS
@@ -63,10 +68,15 @@ add_to_minimap:
     lsl  offset_w, offset_w, #1
     strb card_idx_w, [mimimap_ptr, offset_w, sxtw]
 
+    mov w0, saved_row
+    mov w1, saved_col
+    bl connect_room
+
     // TODO: link puzzle
 
     // TODO: update card avaliability
 
+    ldp x19, x20, [sp], #16
     ldp fp, lr, [sp], #16
     ret
 
