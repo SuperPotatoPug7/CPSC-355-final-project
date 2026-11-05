@@ -125,6 +125,8 @@ define(rra_num_ptr, x10)
 define(rra_count, w11)
 define(rra_i, w12)
 define(rra_next_i, w13)
+define(rra_offset_w, w14)
+define(rra_curr_val, w15)
     .global remove_room_avaliability
 remove_room_avaliability:
     stp fp, lr, [sp, #-16]!
@@ -161,7 +163,13 @@ rra_shift_loop:
     cmp rra_next_i, rra_count
     b.ge rra_update_count
 
-    // TODO
+    // Load arr[i + 1]
+    lsl rra_offset_w, rra_next_i, #2
+    ldr rra_curr_val, [rra_cards_ptr, rra_offset_w, sxtw]
+
+    // Store into arr[i]
+    lsl rra_offset_w, rra_i, #2
+    str rra_curr_val, [rra_cards_ptr, rra_offset_w, sxtw]
 
     // loop & increment
     mov rra_i, rra_next_i
