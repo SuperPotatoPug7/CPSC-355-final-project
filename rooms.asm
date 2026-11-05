@@ -119,12 +119,28 @@ connect_done:
 // Function:    removes a room card from the pile of avaliable cards
 // Input:       w0: <int> card index
 // Output:      void
+define(rra_target_idx, w0)
+define(rra_cards_ptr, x9)
+define(rra_num_ptr, x10)
+define(rra_count, w11)
     .global remove_room_avaliability
 remove_room_avaliability:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    // TODO
+    // Load base addresses and current count of available rooms
+    ldr rra_cards_ptr, =avaliable_room_cards
+    ldr rra_num_ptr, =num_avaliable_rooms
+    ldr rra_count, [rra_num_ptr]
+
+// ------ Search for target card index in avaliable_room_cards ------ TODO
+
+// ------ Shift subsequent elements left by 1 ------ TODO
+
+// ------ Decrement num_avaliable_rooms by 1 ------
+    rra_update_count:
+    sub rra_count, rra_count, #1
+    str rra_count, [rra_num_ptr]
 
     ldp fp, lr, [sp], #16
     ret
@@ -139,7 +155,6 @@ define(target_row, w0)
 define(target_col, w1)
 define(target_flags, w0)
 define(card_index, w13)
-define(room_card_ptr,    w14)
 define(direction_bitmask, w19)
 define(player_flags, w20)
 define(player_row, w21)
@@ -184,15 +199,13 @@ load_rooms:
     // get the target's room_card boolean flags
     bl get_room_pointer
     cbz  w1, connect_done // (exit early if empty room)
-    mov room_card_ptr, x0
-    ldrb target_flags, [room_card_ptr]
+    ldrb target_flags, [x0]
 
     // get the player's room's room_card boolean flags
     mov w0, player_row
     mov w1, player_col
     bl get_room_pointer
-    mov room_card_ptr, x0
-    ldrb player_flags, [room_card_ptr]
+    ldrb player_flags, [x0]
 
 // ------ Rotate & Compare using Bitmask ------
 
