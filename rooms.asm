@@ -142,7 +142,13 @@ rra_search_loop:
     cmp rra_i, rra_count
     b.ge rra_done
 
-    // TODO
+    // offset = i * 4 bytes (.word)
+    lsl rra_offset_w, rra_i, #2
+    // get avaliable_rooms[i] & compare to target
+    ldr rra_curr_val, [rra_cards_ptr, rra_offset_w, sxtw]
+    cmp rra_curr_val, rra_target_idx
+    // if found, move to shifting loop
+    b.eq rra_shift_loop
 
     // loop & increment
     add rra_i, rra_i, #1
