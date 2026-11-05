@@ -123,6 +123,8 @@ define(rra_target_idx, w0)
 define(rra_cards_ptr, x9)
 define(rra_num_ptr, x10)
 define(rra_count, w11)
+define(rra_i, w12)
+define(rra_next_i, w13)
     .global remove_room_avaliability
 remove_room_avaliability:
     stp fp, lr, [sp, #-16]!
@@ -133,14 +135,38 @@ remove_room_avaliability:
     ldr rra_num_ptr, =num_avaliable_rooms
     ldr rra_count, [rra_num_ptr]
 
-// ------ Search for target card index in avaliable_room_cards ------ TODO
+// ------ Search for target card index in avaliable_room_cards ------ 
+    mov rra_i, #0
+rra_search_loop:
+    // if target not in array, exit
+    cmp rra_i, rra_count
+    b.ge rra_done
 
-// ------ Shift subsequent elements left by 1 ------ TODO
+    // TODO
+
+    // loop & increment
+    add rra_i, rra_i, #1
+    b rra_search_loop
+
+// ------ Shift subsequent elements left by 1 ------
+rra_shift_loop:
+    // check for exit (end of array)
+    add rra_next_i, rra_i, #1
+    cmp rra_next_i, rra_count
+    b.ge rra_update_count
+
+    // TODO
+
+    // loop & increment
+    mov rra_i, rra_next_i
+    b rra_shift_loop
 
 // ------ Decrement num_avaliable_rooms by 1 ------
-    rra_update_count:
+rra_update_count:
     sub rra_count, rra_count, #1
     str rra_count, [rra_num_ptr]
+
+rra_done:
 
     ldp fp, lr, [sp], #16
     ret
