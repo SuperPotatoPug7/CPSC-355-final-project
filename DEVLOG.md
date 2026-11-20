@@ -15,57 +15,57 @@
 ## V1.0- Minimum Working Prototype - TODO
 
 
-- playerCanMove- TODO
+- playerCanMove- Micheal
   - is movement permissable? -> checks if there's a door & still on map
   - input: w, a, s, d -> up, left, down, right
   - ret: <bool> 1=T, 0=F
 
-- movePlayer- TODO
+- movePlayer- Micheal
   - moves the player up, left, right, down 
   - input: <int> 0, 1, 2, 3 (WASD)
   - Output: 
 
-- isWinState- TODO
+- isWinState- Micheal
   - checks if player is in exit room & enough gems
   - input:
   - output: <bool> 1=T, 0=F
 
-- promptWASD- TODO
+- promptWASD- Mattew
   - prints prompt, takes user input for movement using scanf, casts to int before ret
   - input: 
   - output: the player's response- w, a, s, d -> returned as <int> 0, 1, 2, 3
 
-- addRandomRoom- TODO
+- addRandomRoom- Mattew
   - takes random room from avaliableRoomCards, returns index of the associated room
   - input:
   - output: <int> an avaliable room card index, -1 for no avaliable rooms
 
-- prompt strings in .bss- TODO
-- array of <pointer>, <8-byte int> correct answer- TODO
+- prompt strings in .bss- Ali
+- array of <pointer>, <8-byte int> correct answer- Ali
 
-- global int gemCount- TODO
+- global int gemCount- Ali
 
-- roomHasTriviaQuestion- TODO
+- roomHasTriviaQuestion- Mattew
   - checks if a room card has a trivia question
   - input: room card index
   - output: <bool> 1=T, 0=F
 
-- selectRandomTriviaQuestion- TODO
+- selectRandomTriviaQuestion- Curtis
   - selects a random trivia question index
   - input: 
   - output: <int> trivia prompt index
 
-- printTriviaPrompt- TODO
+- printTriviaPrompt- Curtis
   - prints a trivia question
   - input: <int> trivia prompt index
   - output:
 
-- takeTriviaAnswer- TODO
+- takeTriviaAnswer- Curtis
   - takes the user input for a trivia answer & check if it's correct
   - input: <int> trivia prompt index
   - output: <boolean> 1=correct, 0=incorrect
 
-- updateRoomFlagsAndGemCountFromTriviaAnswer- TODO
+- updateRoomFlagsAndGemCountFromTriviaAnswer- Ali
   - loses a gem for right question, gains the has_gem flag for correct answer, updates the has_trivia room flag & the has_gem room flag to 0
   - input: <int> trivia prompt index, <boolean> 1=correct, 0=incorrect
   - output: 
