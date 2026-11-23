@@ -122,7 +122,7 @@ isWinState:
     str x21, [sp, #-16]!
 
     // Check number of collected gems
-    ldr x9, =gems_collected
+    ldr x9, =gem_count
     ldr iws_gems, [x9]
 
     ldr x9, =required_gems
