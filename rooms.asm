@@ -57,7 +57,113 @@ gr_done:
     ldp fp, lr, [sp], #16
     ret
 
+    
+// ---------------- Get Room Type ----------------
+// Function:    Gets the type of the room at the given minimap coordinates.
+// Input:       w0: minimap row, w1: minimap column
+// Output:      w0: room type (0 = Empty, 1 = Starter, 2 = Gem,
+//                                  3 = Trap, 4 = Exit)
+//              w1: boolean success (1 = found, 0 = not found)
 
+define(grt_row, w19)
+define(grt_col, w20)
+define(grt_room_ptr, x21)
+
+    .global get_room_type
+get_room_type:
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+    stp x19, x20, [sp, #-16]!
+    stp x21, x22, [sp, #-16]!
+
+    // Save coordinates
+    mov grt_row, w0
+    mov grt_col, w1
+
+    // Get room pointer
+    mov w0, grt_row
+    mov w1, grt_col
+    bl get_room_pointer
+
+    // Check if room exists
+    cbz w1, grt_not_found
+
+    // Get room type (byte 1)
+    mov grt_room_ptr, x0
+    ldrb w0, [grt_room_ptr, #1]
+
+    mov w1, #1
+    b grt_done
+
+grt_not_found:
+    mov w0, #0
+    mov w1, #0
+
+grt_done:
+    ldp x21, x22, [sp], #16
+    ldp x19, x20, [sp], #16
+    ldp fp, lr, [sp], #16
+    ret
+
+//----------isWinState----------------
+//Function: check if player wins when entering exit room
+//Input:
+//Output: <bool> (1 = won, 0 = not yet)
+define(iws_row, w19)
+define(iws_col, w20)
+define(iws_gems, w21)
+
+    .global isWinState
+isWinState:
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    stp x19, x20, [sp, #-16]!
+    str x21, [sp, #-16]!
+
+    // Check number of collected gems
+    ldr x9, =gems_collected
+    ldr iws_gems, [x9]
+
+    ldr x9, =required_gems
+    ldr w10, [x9]
+
+    // Not enough gems
+    cmp iws_gems, w10
+    b.lt iws_false
+
+    // Get player position
+    ldr x9, =player_y
+    ldr iws_row, [x9]
+
+    ldr x9, =player_x
+    ldr iws_col, [x9]
+
+    // Get current room type
+    mov w0, iws_row
+    mov w1, iws_col
+    bl get_room_type
+
+    // Check room exists
+    cbz w1, iws_false
+
+    // Check if player is in exit room
+    cmp w0, #ROOM_EXIT
+    b.ne iws_false
+
+    // Player has enough gems and reached exit
+    mov w0, #1
+    b iws_done
+
+iws_false:
+    mov w0, #0
+
+iws_done:
+    ldr x21, [sp], #16
+    ldp x19, x20, [sp], #16
+
+    ldp fp, lr, [sp], #16
+    ret
 // ---------------- Connect Room ----------------
 // Function:    rotates a room in memory until it is connected to the
 //              room the player is currently in
