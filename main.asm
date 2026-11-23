@@ -4,6 +4,12 @@
     .data
 
 // holds room data
+
+//required gems to win
+    .global required_gems
+required_gems:
+    .word 5 //change this as needed
+
 // <int> the number of remaining avaliable rooms
 num_avaliable_rooms:
             .word 20
