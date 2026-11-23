@@ -1,11 +1,3 @@
-    .global gems_collected
-gems_collected:
-    .word 0
-
-    .global required_gems
-required_gems:
-    .word 5 //change this as needed
-
 //define room types
 ROOM_EMPTY = 0
 ROOM_STARTER = 1
@@ -42,17 +34,17 @@ canPlayerMove:
     ldr cpm_col, [x9]
 
     // Determine destination
-    cmp cpm_dir, #DIR_LEFT
-    b.eq cpm_left
-
-    cmp cpm_dir, #DIR_UP
+    cmp cpm_dir, #0
     b.eq cpm_up
 
-    cmp cpm_dir, #DIR_RIGHT
-    b.eq cpm_right
+    cmp cpm_dir, #1
+    b.eq cpm_left
 
-    cmp cpm_dir, #DIR_DOWN
+    cmp cpm_dir, #2
     b.eq cpm_down
+
+    cmp cpm_dir, #3
+    b.eq cpm_right
 
     b cpm_invalid
 
@@ -126,7 +118,7 @@ movePlayer:
     mov mp_dir, w0
 
     // Check if movement is allowed
-    b canPlayerMove
+    bl canPlayerMove
 
     cmp w0, #1
     b.ne mp_invalid
@@ -139,17 +131,17 @@ movePlayer:
     ldr mp_col, [x9]
 
     // Update coordinates
-    cmp mp_dir, #DIR_LEFT
-    b.eq mp_left
-
-    cmp mp_dir, #DIR_UP
+    cmp mp_dir, #0
     b.eq mp_up
 
-    cmp mp_dir, #DIR_RIGHT
-    b.eq mp_right
+    cmp mp_dir, #1
+    b.eq mp_left
 
-    cmp mp_dir, #DIR_DOWN
+    cmp mp_dir, #2
     b.eq mp_down
+
+    cmp mp_dir, #3
+    b.eq mp_right
 
     b mp_invalid
 
