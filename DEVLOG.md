@@ -18,7 +18,7 @@
 - canPlayerMove- Michael
   - is movement permissable? -> checks if there's a door & still on map
   - input: w, a, s, d -> up, left, down, right
-  - ret: <bool> 1=T, 0=F
+  - ret: w0 = <bool> 1=T, 0=F
   DONE
 
 -get_room_type- Michael
@@ -34,9 +34,9 @@
   DONE
 
 - isWinState- Michael
-  - checks if player has enough gems
+  - checks if player has enough gems & is in exit room
   - input:
-  - output: <bool> 1=T, 0=F 
+  - output: w0 = <bool> 1=T, 0=F 
   DONE
 
 - promptWASD- Mattew
