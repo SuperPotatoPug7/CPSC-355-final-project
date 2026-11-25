@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Build output (m4 *.asm -> *.s, then gcc)
+*.s
+*.o
+a.out
+main
+
+# Debugger / editor
+.gdb_history
+.vscode/
+.idea/
+*.swp
+*~

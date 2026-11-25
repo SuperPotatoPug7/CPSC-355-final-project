@@ -6,6 +6,7 @@
 
 define(fp, x29)
 define(lr, x30)
+scan_fmt:.string " %c" 
 
 // global 4-byte int: the number of gems the player is holding
     .global gem_count
@@ -415,4 +416,73 @@ ur_done:
     ldr x19, [sp], #16
     ldp fp, lr, [sp], #16
     mov w0, #0
+    ret
+
+.global selectRandomTriviaQuestion
+selectRandomTriviaQuestion:
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    bl rand // puts w0 = the random num
+
+    ldr x9, =num_trivia_questions // 40 questions
+    ldr w9, [x9] // w9 =40
+
+    udiv w10, w0, w9 // divide the random num by the num of questions
+    msub w10, w10, w9, w0 // w10 = w0 - (w10 * w9)
+
+    mov w0, w10
+
+    ldp fp, lr, [sp], #16     // restore fp & lr
+    ret
+
+.global printTriviaPrompt
+printTriviaPrompt:
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    ldr x9, = trivia_questions // the array address
+
+    mov x11, #16 // give the number 16 a register cause each question takes up 16 bytes 
+    mul x10, x0, x11 // x10 = the depth at which to go (16 bytes * the question position) 
+
+    add x9, x9, x10 // x9 = the address of this question's entry: start of the list + current position
+    ldr x0, [x9] // x0 is the pointer to the question string
+
+    bl printf
+
+    ldp fp, lr, [sp], #16
+    ret
+
+.global takeTriviaAnswer
+takeTriviaAnswer:
+
+    stp fp, lr, [sp, #-32]!
+    mov fp, sp
+    str x19, [sp, #24]
+    mov w19, w0
+
+    ldr x0, =scan_fmt
+    add x1, sp, #16
+    bl scanf
+
+    ldrb w9, [sp, #16] // the character the user typed
+    sub w9, w9, #'0' // turn the char into a number
+
+    ldr x10, =trivia_questions // x10 = the start of the list
+    mov x11, #16 // representing the 16 byte size of each element
+    mul x12, x19, x11 // depth of the q
+    add x10, x10, x12 // the address = x10
+    add x10, x10, #8  // skip the 8 byte question pointer to get the answer
+
+    ldr w13, [x10] // w13 = the correct answer
+    cmp w9, w13
+
+    mov w0, #1
+    b.eq trivia_answer_correct
+    mov w0, #0
+
+    trivia_answer_correct:
+    ldr x19, [sp, #24]
+    ldp fp, lr, [sp], #32
     ret
