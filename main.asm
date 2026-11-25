@@ -133,14 +133,19 @@ main:
     mov fp, sp
 
     bl init_minimap // initializes starter room
-    // (test) adds a room
-    mov w0, #19
-    mov w1, #3
-    mov w2, #4
-    bl add_to_minimap
-    bl render_minimap // (test) renders minimap
+    bl render_minimap // renders minimap
 
-    // TODO
+    // Gameplay Loop
+main_loop:
+
+    bl isWinState
+    cmp w0, #1
+    b.eq main_loop_done
+
+
+    b main_loop
+
+main_loop_done:
 
     //      resetting
     ldp fp, lr, [sp], #16
