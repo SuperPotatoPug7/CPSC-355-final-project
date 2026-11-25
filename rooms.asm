@@ -323,3 +323,16 @@ arr_none:
 arr_done:
     ldp fp, lr, [sp], #16
     ret
+
+
+// ---------------- Room Has Trivia Question ----------------
+// Function:    checks if a room card has a trivia question
+// Input:       w0: <int> room card index
+// Output:      w0: <boolean> 1 = True, 0 = False
+    .global room_has_trivia_question
+room_has_trivia_question:
+    ldr x9, =room_cards
+    lsl w0, w0, #1                  // each card is 2 bytes
+    ldrb w0, [x9, w0, uxtw]         // w0 = the card's flags byte
+    ubfx w0, w0, #3, #1             // w0 = bit 3 (has_active_puzzle)
+    ret
