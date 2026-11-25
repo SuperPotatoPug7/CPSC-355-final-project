@@ -6,7 +6,7 @@
 
 define(fp, x29)
 define(lr, x30)
-scan_fmt:.string " %c" 
+trivia_scan_fmt:.string " %c" 
 
 // global 4-byte int: the number of gems the player is holding
     .global gem_count
@@ -409,7 +409,8 @@ ur_incorrect:
 // ------ Save the gem count & clear has_active_puzzle (bit 3) and still_has_gem (bit 2) ------
 ur_store:
     str ur_gem_count, [ur_gem_count_ptr]
-    bic ur_flags, ur_flags, #0b00001100
+    mov w13, #0b00001100
+    bic ur_flags, ur_flags, w13
     strb ur_flags, [ur_flags_ptr]
 
 ur_done:
@@ -462,7 +463,7 @@ takeTriviaAnswer:
     str x19, [sp, #24]
     mov w19, w0
 
-    ldr x0, =scan_fmt
+    ldr x0, =trivia_scan_fmt
     add x1, sp, #16
     bl scanf
 
