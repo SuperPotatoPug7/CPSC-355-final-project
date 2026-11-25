@@ -2,6 +2,10 @@
 
 MINIMAP_COLS = 7
 
+.global required_gems 
+required_gems: 
+    .word 5
+
 define(fp, x29)
 define(lr, x30)
 
