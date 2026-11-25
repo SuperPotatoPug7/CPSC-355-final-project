@@ -159,15 +159,21 @@ main_loop:
 
 m_has_trivia:
 
-    // TODO: select random trivia question
+    // select random trivia question: w0 = trivia prompt index
+    bl selectRandomTriviaQuestion
+    str w0, [sp, #-16]!         // push the index so it survives the calls below (stack stays 16-byte aligned)
 
-    // TODO: print question prompt
+    // print question prompt
+    bl printTriviaPrompt
 
-    // TODO: take input 1-4
+    // take input 1-4 & check against the correct answer: w0 = 1 if correct, 0 if incorrect
+    ldr w0, [sp]                // w0 = the index
+    bl takeTriviaAnswer
 
-    // TODO: check against correct answer
-
-    // TODO: update boolean flags & gem count
+    // update boolean flags & gem count
+    mov w1, w0                  // w1 = 1 if correct, 0 if incorrect
+    ldr w0, [sp], #16           // w0 = the index (unused by the update function); pop it
+    bl update_room_flags_and_gem_count_from_trivia_answer
 
 m_hs_skip:
 
