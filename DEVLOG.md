@@ -15,20 +15,29 @@
 ## V1.0- Minimum Working Prototype - TODO
 
 
-- playerCanMove- Micheal
+- canPlayerMove- Michael
   - is movement permissable? -> checks if there's a door & still on map
   - input: w, a, s, d -> up, left, down, right
-  - ret: <bool> 1=T, 0=F
+  - ret: w0 = <bool> 1=T, 0=F
+  DONE
 
-- movePlayer- Micheal
+-get_room_type- Michael
+  -checks wha the current room is
+  -input: row, column, room pointer
+  -output: w1 = 1 if room exists, 0 if not. w0 = room type- empty, start, gem, trap, exit -> returned as <int> 0, 1, 2, 3, 4
+  DONE
+
+- movePlayer- Michael
   - moves the player up, left, right, down 
   - input: <int> 0, 1, 2, 3 (WASD)
   - Output: 
+  DONE
 
-- isWinState- Micheal
-  - checks if player is in exit room & enough gems
+- isWinState- Michael
+  - checks if player has enough gems & is in exit room
   - input:
-  - output: <bool> 1=T, 0=F
+  - output: w0 = <bool> 1=T, 0=F 
+  DONE
 
 - promptWASD- Mattew
   - prints prompt, takes user input for movement using scanf, casts to int before ret
