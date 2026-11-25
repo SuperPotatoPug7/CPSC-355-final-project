@@ -12,7 +12,7 @@ define(lr, x30)
 // Function:    Gets the room card associated with an i,j index on
 //              the minimap.
 // Input:       w0: minimap row, w1: minimap colunm
-// Output:      x0: room card pointer, w1: boolean success (1 = found, 0 = not found)
+// Output:      x0: room card pointer, w1: boolean success (1 = found, 0 = not found), x2: room card index
 define(gr_row, w0)
 define(gr_col, w1)
 define(gr_room_card_ptr, x0)
@@ -53,6 +53,8 @@ gr_is_empty_room:
     mov gr_success, #0
 
 gr_done:
+
+    mov x2, gr_card_index
 
     ldp fp, lr, [sp], #16
     ret
