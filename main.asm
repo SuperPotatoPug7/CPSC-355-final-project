@@ -132,7 +132,8 @@ define(lr, x30)
 // ======================================
 
 
-
+define(m_player_x, x19)
+define(m_player_y, x20)
 main:
     //      function stack allocation
     stp fp, lr, [sp, #-16]!
@@ -147,6 +148,26 @@ main_loop:
     bl isWinState
     cmp w0, #1
     b.eq main_loop_done
+
+    // Get target's room_card_index at Byte 0 of minimap[i][j]
+    ldr m_player_x, =player_x
+    ldr m_player_y, =player_y
+
+    // check if room has trivia question
+    mov x0, m_player_x
+    mov x1, m_player_y
+    bl get_room_pointer
+    mov x0, x3
+    bl roomHasTriviaQuestion
+
+    cmp w0, #1
+    b.ne m_hs_skip
+
+m_has_trivia:
+
+    
+
+m_hs_skip:
 
 
     b main_loop
