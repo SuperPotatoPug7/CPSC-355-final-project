@@ -159,9 +159,25 @@ main_loop:
 
 m_has_trivia:
 
-    
+    // TODO: select random trivia question
+
+    // TODO: print question prompt
+
+    // TODO: take input 1-4
+
+    // TODO: check against correct answer
+
+    // TODO: update boolean flags & gem count
 
 m_hs_skip:
+
+    // prompt for WASD
+
+    // check if viable movement
+
+    // TODO: if viable movement:
+    //      if room exists: move to it
+    //      if room doesn;t exist: add it
 
 
     b main_loop
