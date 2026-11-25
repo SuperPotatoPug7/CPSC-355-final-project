@@ -292,3 +292,34 @@ rotate:
 
     ldp fp, lr, [sp], #16
     ret
+
+// ---------------- Add Random Room ----------------
+// Function:    picks a random room card from the avaliable pile
+// Input:       none
+// Output:      w0: <int> an avaliable room card index, -1 if none left
+    .global add_random_room
+add_random_room:
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    ldr x9, =num_avaliable_rooms
+    ldr w9, [x9]                    // w9 = how many rooms are left
+    cbz w9, arr_none                // none left -> return -1
+
+    bl rand                         // w0 = random number
+
+    ldr x9, =num_avaliable_rooms
+    ldr w9, [x9]
+    udiv w10, w0, w9
+    msub w10, w10, w9, w0           // w10 = rand % count
+
+    ldr x11, =avaliable_room_cards
+    ldr w0, [x11, w10, sxtw #2]     // w0 = cards[w10] (#2 = times 4 bytes)
+    b arr_done
+
+arr_none:
+    mov w0, #-1
+
+arr_done:
+    ldp fp, lr, [sp], #16
+    ret
