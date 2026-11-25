@@ -292,3 +292,47 @@ rotate:
 
     ldp fp, lr, [sp], #16
     ret
+
+// ---------------- Add Random Room ----------------
+// Function:    picks a random room card from the avaliable pile
+// Input:       none
+// Output:      w0: <int> an avaliable room card index, -1 if none left
+    .global add_random_room
+add_random_room:
+    stp fp, lr, [sp, #-16]!
+    mov fp, sp
+
+    ldr x9, =num_avaliable_rooms
+    ldr w9, [x9]                    // w9 = how many rooms are left
+    cbz w9, arr_none                // none left -> return -1
+
+    bl rand                         // w0 = random number
+
+    ldr x9, =num_avaliable_rooms
+    ldr w9, [x9]
+    udiv w10, w0, w9
+    msub w10, w10, w9, w0           // w10 = rand % count
+
+    ldr x11, =avaliable_room_cards
+    ldr w0, [x11, w10, sxtw #2]     // w0 = cards[w10] (#2 = times 4 bytes)
+    b arr_done
+
+arr_none:
+    mov w0, #-1
+
+arr_done:
+    ldp fp, lr, [sp], #16
+    ret
+
+
+// ---------------- Room Has Trivia Question ----------------
+// Function:    checks if a room card has a trivia question
+// Input:       w0: <int> room card index
+// Output:      w0: <boolean> 1 = True, 0 = False
+    .global room_has_trivia_question
+room_has_trivia_question:
+    ldr x9, =room_cards
+    lsl w0, w0, #1                  // each card is 2 bytes
+    ldrb w0, [x9, w0, uxtw]         // w0 = the card's flags byte
+    ubfx w0, w0, #3, #1             // w0 = bit 3 (has_active_puzzle)
+    ret
