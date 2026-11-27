@@ -158,13 +158,13 @@ define(r_room_type,     w25)
     .global render_minimap
 render_minimap:
     //      Function stack allocation
-    stp fp, lr, [sp, #-64]!
+    stp fp, lr, [sp, #-80]!
     mov fp, sp
     // Callee-saved registers
     stp x19, x20, [sp, #16]
     stp x21, x22, [sp, #32]
     stp x23, x24, [sp, #48]
-    str x25, [sp, #56]
+    str x25, [sp, #64]
 
     ldr r_map_base, =minimap
     ldr r_card_base, =room_cards
@@ -338,10 +338,10 @@ row_loop_done:
     bl printf
 
     //      Resetting
-    ldr x25, [sp, #56]
+    ldr x25, [sp, #64]
     ldp x23, x24, [sp, #48]
     ldp x21, x22, [sp, #32]
     ldp x19, x20, [sp, #16]
-    ldp fp, lr, [sp], #64
+    ldp fp, lr, [sp], #80
     mov w0, #0
     ret
