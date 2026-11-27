@@ -25,284 +25,284 @@ num_trivia_questions:
 // each string is a question followed by its 4 numbered choices (1-4), ending in a newline
 
 trivia_prompt_0:
-    .ascii  "In Khoikhoi folklore, where are the eyes of the man-eating aigamuxa?\n"
-    .ascii  "  1) The hands\n"
-    .ascii  "  2) The head\n"
-    .ascii  "  3) The feet\n"
-    .string "  4) The chest\n"
+    .ascii  "How many general-purpose registers does AArch64 have?\n"
+    .ascii  "  1) 16\n"
+    .ascii  "  2) 30\n"
+    .ascii  "  3) 31\n"
+    .string "  4) 32\n"
 
 trivia_prompt_1:
-    .ascii  "If someone is your genitor, who are they?\n"
-    .ascii  "  1) Biological father\n"
-    .ascii  "  2) Legal father\n"
-    .ascii  "  3) Stepfather\n"
-    .string "  4) Godfather\n"
+    .ascii  "Which instruction copies the value of one register into another?\n"
+    .ascii  "  1) mov\n"
+    .ascii  "  2) cmp\n"
+    .ascii  "  3) ret\n"
+    .string "  4) bl\n"
 
 trivia_prompt_2:
-    .ascii  "The Elder Scrolls 6 has had its official subtitle revealed. What is it?\n"
-    .ascii  "  1) Black Marsh\n"
-    .ascii  "  2) Godhead\n"
-    .ascii  "  3) Tamriel\n"
-    .string "  4) Sentinel\n"
+    .ascii  "Which pseudo-op makes the label main visible to the linker?\n"
+    .ascii  "  1) .string\n"
+    .ascii  "  2) .balign\n"
+    .ascii  "  3) .word\n"
+    .string "  4) .global\n"
 
 trivia_prompt_3:
-    .ascii  "A \"wanyudo\" comes from the folklore of which country?\n"
-    .ascii  "  1) Thailand\n"
-    .ascii  "  2) Japan\n"
-    .ascii  "  3) China\n"
-    .string "  4) Philippines\n"
+    .ascii  "Which register name uses only the low-order 32 bits of register 19?\n"
+    .ascii  "  1) x19\n"
+    .ascii  "  2) w19\n"
+    .ascii  "  3) r19\n"
+    .string "  4) b19\n"
 
 trivia_prompt_4:
-    .ascii  "Modern copyright law can be traced back to a 1710 statute from which country?\n"
-    .ascii  "  1) France\n"
-    .ascii  "  2) The US\n"
-    .ascii  "  3) Germany\n"
-    .string "  4) The UK\n"
+    .ascii  "Which registers are used to pass arguments into a function?\n"
+    .ascii  "  1) x0 - x7\n"
+    .ascii  "  2) x9 - x15\n"
+    .ascii  "  3) x19 - x28\n"
+    .string "  4) x29 and x30\n"
 
 trivia_prompt_5:
-    .ascii  "Which real-life killer partly inspired Leatherface in The Texas Chain Saw Massacre?\n"
-    .ascii  "  1) Ed Gein\n"
-    .ascii  "  2) Ted Bundy\n"
-    .ascii  "  3) John Wayne Gacy\n"
-    .string "  4) BTK\n"
+    .ascii  "Which register is the frame pointer (FP)?\n"
+    .ascii  "  1) x0\n"
+    .ascii  "  2) x19\n"
+    .ascii  "  3) x30\n"
+    .string "  4) x29\n"
 
 trivia_prompt_6:
-    .ascii  "Which of these is an example of a grey-market offering?\n"
-    .ascii  "  1) Secondhand furniture on Kijiji\n"
-    .ascii  "  2) Liquidation sales\n"
-    .ascii  "  3) Genuine phones imported and resold by unauthorized dealers\n"
-    .string "  4) Farmer's market vendors\n"
+    .ascii  "Which register is the link register (LR)?\n"
+    .ascii  "  1) x8\n"
+    .ascii  "  2) x30\n"
+    .ascii  "  3) x29\n"
+    .string "  4) x18\n"
 
 trivia_prompt_7:
-    .ascii  "Which fast-food chain in Canada serves a sweet-style spaghetti topped with sliced hot dogs?\n"
-    .ascii  "  1) A&W\n"
-    .ascii  "  2) Jollibee\n"
-    .ascii  "  3) Arby's\n"
-    .string "  4) Mary Brown's Chicken\n"
+    .ascii  "Which registers are callee-saved, meaning a function you call preserves their values?\n"
+    .ascii  "  1) x0 - x7\n"
+    .ascii  "  2) x9 - x15\n"
+    .ascii  "  3) x19 - x28\n"
+    .string "  4) x16 and x17\n"
 
 trivia_prompt_8:
-    .ascii  "In Marxist literature, which group is considered the opposite of the bourgeoisie?\n"
-    .ascii  "  1) Intelligentsia\n"
-    .ascii  "  2) Proletariat\n"
-    .ascii  "  3) Petit bourgeoisie\n"
-    .string "  4) Middle class\n"
+    .ascii  "What value do you get when you read from the zero register (XZR or WZR)?\n"
+    .ascii  "  1) 0\n"
+    .ascii  "  2) 1\n"
+    .ascii  "  3) -1\n"
+    .string "  4) The last value written to it\n"
 
 trivia_prompt_9:
-    .ascii  "What does \"pulchritudinous\" mean?\n"
-    .ascii  "  1) Glowing\n"
-    .ascii  "  2) Diseased\n"
-    .ascii  "  3) Rage-inducing\n"
-    .string "  4) Beautiful\n"
+    .ascii  "Which register points to the top of the run-time stack?\n"
+    .ascii  "  1) PC\n"
+    .ascii  "  2) LR\n"
+    .ascii  "  3) XZR\n"
+    .string "  4) SP\n"
 
 trivia_prompt_10:
-    .ascii  "The founder of Scientology was close friends with which famous science fiction author?\n"
-    .ascii  "  1) Isaac Asimov\n"
-    .ascii  "  2) William Gibson\n"
-    .ascii  "  3) Robert A. Heinlein\n"
-    .string "  4) Frank Herbert\n"
+    .ascii  "Which prefix marks an immediate as hexadecimal?\n"
+    .ascii  "  1) 0b\n"
+    .ascii  "  2) 0x\n"
+    .ascii  "  3) 0h\n"
+    .string "  4) 0d\n"
 
 trivia_prompt_11:
-    .ascii  "\"Donair\" originates from which country?\n"
-    .ascii  "  1) Greece\n"
-    .ascii  "  2) Saudi Arabia\n"
-    .ascii  "  3) USA\n"
-    .string "  4) Canada\n"
+    .ascii  "Which instruction calls a function and remembers where to come back to?\n"
+    .ascii  "  1) b\n"
+    .ascii  "  2) cmp\n"
+    .ascii  "  3) bl\n"
+    .string "  4) mov\n"
 
 trivia_prompt_12:
-    .ascii  "Which song plays at the start of the end-credits for Scary Movie 2?\n"
-    .ascii  "  1) The Cranberries - Zombie\n"
-    .ascii  "  2) Nelly - Ride Wit Me\n"
-    .ascii  "  3) Blink-182 - \"Adam's Song\"\n"
-    .string "  4) Richard Wagner - Ride of the Valkyries\n"
+    .ascii  "After a function call, which register holds the return value?\n"
+    .ascii  "  1) x0\n"
+    .ascii  "  2) x19\n"
+    .ascii  "  3) x29\n"
+    .string "  4) x30\n"
 
 trivia_prompt_13:
-    .ascii  "Before starting Valve, Gabe Newell worked at which company?\n"
-    .ascii  "  1) Apple\n"
-    .ascii  "  2) IBM\n"
-    .ascii  "  3) Microsoft\n"
-    .string "  4) Atari\n"
+    .ascii  "Is ARMv8-A a RISC or a CISC architecture?\n"
+    .ascii  "  1) CISC\n"
+    .ascii  "  2) RISC\n"
+    .ascii  "  3) Both\n"
+    .string "  4) Neither\n"
 
 trivia_prompt_14:
-    .ascii  "Which European country was the centre of the Reconquista, when Christian kingdoms retook land from Muslim rule?\n"
-    .ascii  "  1) Albania\n"
-    .ascii  "  2) Russia\n"
-    .ascii  "  3) Italy\n"
-    .string "  4) Spain\n"
+    .ascii  "In stp x29, x30, [sp, -16]! how many bytes of stack memory are allocated?\n"
+    .ascii  "  1) 8\n"
+    .ascii  "  2) 29\n"
+    .ascii  "  3) 30\n"
+    .string "  4) 16\n"
 
 trivia_prompt_15:
-    .ascii  "In Congolese folklore, what does the dwarf-like eloko carry?\n"
-    .ascii  "  1) A hammer\n"
-    .ascii  "  2) A jewel\n"
-    .ascii  "  3) An eye\n"
-    .string "  4) A bell\n"
+    .ascii  "Which instruction returns control to the calling code?\n"
+    .ascii  "  1) bl\n"
+    .ascii  "  2) cmp\n"
+    .ascii  "  3) ret\n"
+    .string "  4) mov\n"
 
 trivia_prompt_16:
-    .ascii  "Which of these works features its own author as the main character?\n"
-    .ascii  "  1) A Clockwork Orange\n"
-    .ascii  "  2) The Divine Comedy\n"
-    .ascii  "  3) Kafka on the Shore\n"
-    .string "  4) To Kill a Mockingbird\n"
+    .ascii  "What does add x19, x20, x21 calculate?\n"
+    .ascii  "  1) x19 = x20 + x21\n"
+    .ascii  "  2) x21 = x19 + x20\n"
+    .ascii  "  3) x20 = x19 + x21\n"
+    .string "  4) x19 = x19 + x20 + x21\n"
 
 trivia_prompt_17:
-    .ascii  "Which country completely surrounds Lesotho?\n"
-    .ascii  "  1) Madagascar\n"
-    .ascii  "  2) South Africa\n"
-    .ascii  "  3) Yemen\n"
-    .string "  4) Eritrea\n"
+    .ascii  "Which instruction does signed integer division?\n"
+    .ascii  "  1) mul\n"
+    .ascii  "  2) udiv\n"
+    .ascii  "  3) sub\n"
+    .string "  4) sdiv\n"
 
 trivia_prompt_18:
-    .ascii  "Which of these is a film rather than a video game?\n"
-    .ascii  "  1) Postal 2\n"
-    .ascii  "  2) Manhunt\n"
-    .ascii  "  3) Terrifier 2\n"
-    .string "  4) Hatred\n"
+    .ascii  "What does dividing by 0 with sdiv or udiv write to the destination register?\n"
+    .ascii  "  1) -1\n"
+    .ascii  "  2) 0\n"
+    .ascii  "  3) The numerator\n"
+    .string "  4) Nothing: the program crashes\n"
 
 trivia_prompt_19:
-    .ascii  "The Japanese media franchise Danganronpa has been stated by a producer to be inspired by which Western horror series?\n"
-    .ascii  "  1) Saw\n"
-    .ascii  "  2) Halloween\n"
-    .ascii  "  3) The Purge\n"
-    .string "  4) A Nightmare on Elm Street\n"
+    .ascii  "Which instruction multiplies two registers?\n"
+    .ascii  "  1) add\n"
+    .ascii  "  2) sub\n"
+    .ascii  "  3) mul\n"
+    .string "  4) cmp\n"
 
 trivia_prompt_20:
-    .ascii  "The protagonist of the 2012 remake of \"Maniac\" played which character in the Lord of the Rings films?\n"
-    .ascii  "  1) Frodo\n"
-    .ascii  "  2) Sam\n"
-    .ascii  "  3) Gandalf\n"
-    .string "  4) Bilbo Baggins\n"
+    .ascii  "Which instruction is useful for calculating the remainder after a division?\n"
+    .ascii  "  1) msub\n"
+    .ascii  "  2) ret\n"
+    .ascii  "  3) bl\n"
+    .string "  4) cmp\n"
 
 trivia_prompt_21:
-    .ascii  "Which of these is not a Portuguese word?\n"
-    .ascii  "  1) Favela\n"
-    .ascii  "  2) Carioca\n"
-    .ascii  "  3) Saudade\n"
-    .string "  4) Hacienda\n"
+    .ascii  "When calling printf, what goes in x0?\n"
+    .ascii  "  1) The number of arguments\n"
+    .ascii  "  2) The return address\n"
+    .ascii  "  3) The stack pointer\n"
+    .string "  4) The address of the format string\n"
 
 trivia_prompt_22:
-    .ascii  "Which film did actor Charlie Sheen report to the authorities in the early 1990s, convinced it was a real snuff film?\n"
-    .ascii  "  1) Guinea Pig 2: Flower of Flesh and Blood\n"
-    .ascii  "  2) Cannibal Holocaust\n"
-    .ascii  "  3) August Underground's Mordum\n"
-    .string "  4) Faces of Death\n"
+    .ascii  "Which instruction always jumps to a label, with no condition and no linking?\n"
+    .ascii  "  1) b.eq\n"
+    .ascii  "  2) b\n"
+    .ascii  "  3) cmp\n"
+    .string "  4) ret\n"
 
 trivia_prompt_23:
-    .ascii  "Mike Masnick, who coined the term \"Streisand effect\" in 2005, founded and runs which website?\n"
-    .ascii  "  1) TechCrunch\n"
-    .ascii  "  2) Techdirt\n"
-    .ascii  "  3) The Verge\n"
-    .string "  4) Ars Technica\n"
+    .ascii  "How many condition flags does ARMv8 have?\n"
+    .ascii  "  1) 2\n"
+    .ascii  "  2) 3\n"
+    .ascii  "  3) 4\n"
+    .string "  4) 8\n"
 
 trivia_prompt_24:
-    .ascii  "In which country is \"chalkie\" slang for a teacher?\n"
-    .ascii  "  1) South Africa\n"
-    .ascii  "  2) India\n"
-    .ascii  "  3) Australia\n"
-    .string "  4) UK\n"
+    .ascii  "Which condition flag is true when a result is zero?\n"
+    .ascii  "  1) Z\n"
+    .ascii  "  2) N\n"
+    .ascii  "  3) C\n"
+    .string "  4) V\n"
 
 trivia_prompt_25:
-    .ascii  "Which bestselling horror author said in a 2008 Entertainment Weekly column that he was no fan of video games, while still arguing against a proposed ban on violent ones?\n"
-    .ascii  "  1) Clive Barker\n"
-    .ascii  "  2) R. L. Stine\n"
-    .ascii  "  3) Dean Koontz\n"
-    .string "  4) Stephen King\n"
+    .ascii  "Which condition flag is true when a result is negative?\n"
+    .ascii  "  1) Z\n"
+    .ascii  "  2) C\n"
+    .ascii  "  3) V\n"
+    .string "  4) N\n"
 
 trivia_prompt_26:
-    .ascii  "Which author is generally credited with inventing the detective story?\n"
-    .ascii  "  1) Agatha Christie\n"
-    .ascii  "  2) Arthur Conan Doyle\n"
-    .ascii  "  3) Edgar Allan Poe\n"
-    .string "  4) Wilkie Collins\n"
+    .ascii  "What does cmp x1, x2 do?\n"
+    .ascii  "  1) Copies x2 into x1\n"
+    .ascii  "  2) Subtracts x2 from x1 and only updates the condition flags\n"
+    .ascii  "  3) Adds x1 and x2 and stores the sum in x1\n"
+    .string "  4) Swaps x1 and x2\n"
 
 trivia_prompt_27:
-    .ascii  "What does \"l'esprit de l'escalier\" mean?\n"
-    .ascii  "  1) Thinking of the perfect response too late\n"
-    .ascii  "  2) Elevator music\n"
-    .ascii  "  3) Hauntings in a non-residential area\n"
-    .string "  4) Good workmanship\n"
+    .ascii  "After cmp, which branch is taken only if the two values were equal?\n"
+    .ascii  "  1) b.ne\n"
+    .ascii  "  2) b.gt\n"
+    .ascii  "  3) b.eq\n"
+    .string "  4) b.lt\n"
 
 trivia_prompt_28:
-    .ascii  "Which classic Universal Monsters movie included a scene of a girl being thrown into a lake?\n"
-    .ascii  "  1) Creature from the Black Lagoon\n"
-    .ascii  "  2) Frankenstein\n"
-    .ascii  "  3) The Phantom of the Opera\n"
-    .string "  4) The Invisible Man\n"
+    .ascii  "What is special about instructions that end in s, such as adds and subs?\n"
+    .ascii  "  1) They also set the condition flags\n"
+    .ascii  "  2) They only work on strings\n"
+    .ascii  "  3) They save the result on the stack\n"
+    .string "  4) They run more slowly\n"
 
 trivia_prompt_29:
-    .ascii  "According to director Bob Clark, John Carpenter's Halloween grew out of an imagined sequel to which horror film?\n"
-    .ascii  "  1) Psycho\n"
-    .ascii  "  2) Silent Night, Bloody Night\n"
-    .ascii  "  3) The Texas Chain Saw Massacre\n"
-    .string "  4) Black Christmas\n"
+    .ascii  "How many times is the body of a do loop guaranteed to run?\n"
+    .ascii  "  1) Zero times\n"
+    .ascii  "  2) Exactly twice\n"
+    .ascii  "  3) Exactly ten times\n"
+    .string "  4) At least once\n"
 
 trivia_prompt_30:
-    .ascii  "Three of these are the Japanese, Korean and Chinese words for \"comics\". Which is the odd one out?\n"
-    .ascii  "  1) Manga\n"
-    .ascii  "  2) Donghua\n"
-    .ascii  "  3) Manhwa\n"
-    .string "  4) Manhua\n"
+    .ascii  "After cmp x19, x20 which branch is taken only if x19 is greater than x20?\n"
+    .ascii  "  1) b.lt\n"
+    .ascii  "  2) b.gt\n"
+    .ascii  "  3) b.eq\n"
+    .string "  4) b.le\n"
 
 trivia_prompt_31:
-    .ascii  "Which is generally considered the oldest university in continuous operation in Europe?\n"
-    .ascii  "  1) University of Bologna\n"
-    .ascii  "  2) University of Oxford\n"
-    .ascii  "  3) University of Cambridge\n"
-    .string "  4) University of Paris\n"
+    .ascii  "Which instruction stores a pair of registers to the stack?\n"
+    .ascii  "  1) ldp\n"
+    .ascii  "  2) ret\n"
+    .ascii  "  3) stp\n"
+    .string "  4) bl\n"
 
 trivia_prompt_32:
-    .ascii  "How many years after the Joker's first comic appearance did Harley Quinn debut in Batman: The Animated Series?\n"
-    .ascii  "  1) 42\n"
-    .ascii  "  2) 47\n"
-    .ascii  "  3) 52\n"
-    .string "  4) 57\n"
+    .ascii  "How many bits wide is register x0?\n"
+    .ascii  "  1) 64\n"
+    .ascii  "  2) 32\n"
+    .ascii  "  3) 16\n"
+    .string "  4) 8\n"
 
 trivia_prompt_33:
-    .ascii  "Which member of the original Plants vs. Zombies team was composer Laura Shigihara's boyfriend around the time of the game's release?\n"
-    .ascii  "  1) Rich Werner\n"
-    .ascii  "  2) Tod Semple\n"
-    .ascii  "  3) George Fan\n"
-    .string "  4) Stephen Notley\n"
+    .ascii  "In ARMv8 assembly, what starts a comment?\n"
+    .ascii  "  1) ;\n"
+    .ascii  "  2) --\n"
+    .ascii  "  3) REM\n"
+    .string "  4) //\n"
 
 trivia_prompt_34:
-    .ascii  "Which of these Nordic countries is not part of Scandinavia in the strict sense?\n"
-    .ascii  "  1) Denmark\n"
-    .ascii  "  2) Norway\n"
-    .ascii  "  3) Sweden\n"
-    .string "  4) Finland\n"
+    .ascii  "Which instruction loads a value from memory into a register?\n"
+    .ascii  "  1) str\n"
+    .ascii  "  2) ldr\n"
+    .ascii  "  3) mov\n"
+    .string "  4) cmp\n"
 
 trivia_prompt_35:
-    .ascii  "The 2026 horror film \"Backrooms\" was primarily filmed in what Canadian city?\n"
-    .ascii  "  1) Vancouver, BC\n"
-    .ascii  "  2) Toronto, Ontario\n"
-    .ascii  "  3) Winnipeg, Manitoba\n"
-    .string "  4) Montreal, Quebec\n"
+    .ascii  "Which command assembles and links myprog.s into an executable called myprog?\n"
+    .ascii  "  1) ls myprog.s\n"
+    .ascii  "  2) m4 myprog.s\n"
+    .ascii  "  3) gcc myprog.s -o myprog\n"
+    .string "  4) ret myprog\n"
 
 trivia_prompt_36:
-    .ascii  "Kabab koobideh originates from which country's cuisine?\n"
-    .ascii  "  1) Iran\n"
-    .ascii  "  2) Afghanistan\n"
-    .ascii  "  3) Yemen\n"
-    .string "  4) Turkey\n"
+    .ascii  "How many bits does one hexadecimal digit represent?\n"
+    .ascii  "  1) 4\n"
+    .ascii  "  2) 2\n"
+    .ascii  "  3) 3\n"
+    .string "  4) 8\n"
 
 trivia_prompt_37:
-    .ascii  "Which smartphone brand belongs to the same conglomerate that runs Everland, South Korea's largest theme park?\n"
-    .ascii  "  1) LG\n"
-    .ascii  "  2) Samsung\n"
-    .ascii  "  3) Sony\n"
-    .string "  4) Nokia\n"
+    .ascii  "In A64, how many bits are in a word?\n"
+    .ascii  "  1) 8\n"
+    .ascii  "  2) 16\n"
+    .ascii  "  3) 64\n"
+    .string "  4) 32\n"
 
 trivia_prompt_38:
-    .ascii  "Which car brand's pickup trucks have been called \"the vehicular equivalent of the AK-47\" for being cheap, durable and everywhere in conflict zones?\n"
-    .ascii  "  1) Toyota\n"
-    .ascii  "  2) Land Rover\n"
-    .ascii  "  3) Peugeot\n"
-    .string "  4) Ford\n"
+    .ascii  "An int is 4 bytes. How many bytes does the array int ia[5] take up?\n"
+    .ascii  "  1) 5\n"
+    .ascii  "  2) 20\n"
+    .ascii  "  3) 9\n"
+    .string "  4) 40\n"
 
 trivia_prompt_39:
-    .ascii  "Which rare disease destroys the ability to sleep and has been fatal in every known case?\n"
-    .ascii  "  1) Narcolepsy\n"
-    .ascii  "  2) Huntington's disease\n"
-    .ascii  "  3) Fatal familial insomnia\n"
-    .string "  4) African sleeping sickness\n"
+    .ascii  "Which instruction adds 1 to x19?\n"
+    .ascii  "  1) mov x19, 1\n"
+    .ascii  "  2) sub x19, x19, 1\n"
+    .ascii  "  3) add x19, x19, 1\n"
+    .string "  4) cmp x19, 1\n"
 
 // ---------------- Trivia Question Array ----------------
 // 1D global array of size 40, 16 bytes per entry:
@@ -311,46 +311,46 @@ trivia_prompt_39:
     .balign 8
     .global trivia_questions
 trivia_questions:
-    .xword trivia_prompt_0, 3 // 0: The feet
-    .xword trivia_prompt_1, 1 // 1: Biological father
-    .xword trivia_prompt_2, 4 // 2: Sentinel
-    .xword trivia_prompt_3, 2 // 3: Japan
-    .xword trivia_prompt_4, 4 // 4: The UK
-    .xword trivia_prompt_5, 1 // 5: Ed Gein
-    .xword trivia_prompt_6, 3 // 6: Genuine phones imported and resold by unauthorized dealers
-    .xword trivia_prompt_7, 2 // 7: Jollibee
-    .xword trivia_prompt_8, 2 // 8: Proletariat
-    .xword trivia_prompt_9, 4 // 9: Beautiful
-    .xword trivia_prompt_10, 3 // 10: Robert A. Heinlein
-    .xword trivia_prompt_11, 4 // 11: Canada
-    .xword trivia_prompt_12, 2 // 12: Nelly - Ride Wit Me
-    .xword trivia_prompt_13, 3 // 13: Microsoft
-    .xword trivia_prompt_14, 4 // 14: Spain
-    .xword trivia_prompt_15, 4 // 15: A bell
-    .xword trivia_prompt_16, 2 // 16: The Divine Comedy
-    .xword trivia_prompt_17, 2 // 17: South Africa
-    .xword trivia_prompt_18, 3 // 18: Terrifier 2
-    .xword trivia_prompt_19, 1 // 19: Saw
-    .xword trivia_prompt_20, 1 // 20: Frodo
-    .xword trivia_prompt_21, 4 // 21: Hacienda
-    .xword trivia_prompt_22, 1 // 22: Guinea Pig 2: Flower of Flesh and Blood
-    .xword trivia_prompt_23, 2 // 23: Techdirt
-    .xword trivia_prompt_24, 3 // 24: Australia
-    .xword trivia_prompt_25, 4 // 25: Stephen King
-    .xword trivia_prompt_26, 3 // 26: Edgar Allan Poe
-    .xword trivia_prompt_27, 1 // 27: Thinking of the perfect response too late
-    .xword trivia_prompt_28, 2 // 28: Frankenstein
-    .xword trivia_prompt_29, 4 // 29: Black Christmas
-    .xword trivia_prompt_30, 2 // 30: Donghua
-    .xword trivia_prompt_31, 1 // 31: University of Bologna
-    .xword trivia_prompt_32, 3 // 32: 52
-    .xword trivia_prompt_33, 3 // 33: George Fan
-    .xword trivia_prompt_34, 4 // 34: Finland
-    .xword trivia_prompt_35, 1 // 35: Vancouver, BC
-    .xword trivia_prompt_36, 1 // 36: Iran
-    .xword trivia_prompt_37, 2 // 37: Samsung
-    .xword trivia_prompt_38, 1 // 38: Toyota
-    .xword trivia_prompt_39, 3 // 39: Fatal familial insomnia
+    .xword trivia_prompt_0, 3
+    .xword trivia_prompt_1, 1
+    .xword trivia_prompt_2, 4
+    .xword trivia_prompt_3, 2
+    .xword trivia_prompt_4, 1
+    .xword trivia_prompt_5, 4
+    .xword trivia_prompt_6, 2
+    .xword trivia_prompt_7, 3
+    .xword trivia_prompt_8, 1
+    .xword trivia_prompt_9, 4
+    .xword trivia_prompt_10, 2
+    .xword trivia_prompt_11, 3
+    .xword trivia_prompt_12, 1
+    .xword trivia_prompt_13, 2
+    .xword trivia_prompt_14, 4
+    .xword trivia_prompt_15, 3
+    .xword trivia_prompt_16, 1
+    .xword trivia_prompt_17, 4
+    .xword trivia_prompt_18, 2
+    .xword trivia_prompt_19, 3
+    .xword trivia_prompt_20, 1
+    .xword trivia_prompt_21, 4
+    .xword trivia_prompt_22, 2
+    .xword trivia_prompt_23, 3
+    .xword trivia_prompt_24, 1
+    .xword trivia_prompt_25, 4
+    .xword trivia_prompt_26, 2
+    .xword trivia_prompt_27, 3
+    .xword trivia_prompt_28, 1
+    .xword trivia_prompt_29, 4
+    .xword trivia_prompt_30, 2
+    .xword trivia_prompt_31, 3
+    .xword trivia_prompt_32, 1
+    .xword trivia_prompt_33, 4
+    .xword trivia_prompt_34, 2
+    .xword trivia_prompt_35, 3
+    .xword trivia_prompt_36, 1
+    .xword trivia_prompt_37, 4
+    .xword trivia_prompt_38, 2
+    .xword trivia_prompt_39, 3
 
 // ====================================================
 // ---------------- Trivia Results ----------------
