@@ -6,7 +6,7 @@ ROOM_EXIT = 4
     .balign 4
 .global required_gems
 required_gems:
-    .word 5
+    .word 9
 
 define(fp, x29)
 define(lr, x30)
