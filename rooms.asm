@@ -1,9 +1,11 @@
     .data
 
 MINIMAP_COLS = 7
+ROOM_EXIT = 4
 
-.global required_gems 
-required_gems: 
+    .balign 4
+.global required_gems
+required_gems:
     .word 5
 
 define(fp, x29)
@@ -16,7 +18,7 @@ define(lr, x30)
 // Function:    Gets the room card associated with an i,j index on
 //              the minimap.
 // Input:       w0: minimap row, w1: minimap colunm
-// Output:      x0: room card pointer, w1: boolean success (1 = found, 0 = not found), x2: room card index
+// Output:      x0: room card pointer, w1: boolean success (1 = found, 0 = not found), w2: room card index
 define(gr_row, w0)
 define(gr_col, w1)
 define(gr_room_card_ptr, x0)
@@ -58,7 +60,7 @@ gr_is_empty_room:
 
 gr_done:
 
-    mov x2, gr_card_index
+    mov w2, gr_card_index
 
     ldp fp, lr, [sp], #16
     ret
@@ -175,10 +177,6 @@ iws_done:
 //              room the player is currently in
 // Input:       w0: minimap row, w1: minimap colunm
 // Output:      void
-define(minimap_ptr, x11)
-define(room_cards_ptr, x12)
-define(card_index, w13)
-define(offset_w, w14)
 define(saved_row, w19)
 define(saved_col, w20)
 define(card_flags_ptr, x21)
@@ -305,10 +303,9 @@ rra_done:
 // Output:      w0: boolean: 1 = True, 0 = False
 define(target_row, w0)
 define(target_col, w1)
-define(target_flags, w0)
-define(card_index, w13)
+define(player_flags, w9)
 define(direction_bitmask, w19)
-define(player_flags, w20)
+define(target_flags, w20)
 define(player_row, w21)
 define(player_col, w22)
     .global room_is_connected
@@ -350,25 +347,27 @@ load_rooms:
 
     // get the target's room_card boolean flags
     bl get_room_pointer
-    cbz  w1, connect_done // (exit early if empty room)
-    ldrb target_flags, [x0]
+    cbz  w1, not_connected // (exit early if empty room)
+    ldrb w0, [x0]
+
+// ------ Rotate & Compare using Bitmask ------
+
+    // rotate target room 180 degrees, so that its door facing the player lines up
+    // with the player's door facing it
+    bl rotate
+    bl rotate
+    mov target_flags, w0    // callee-saved, so it survives the call below
 
     // get the player's room's room_card boolean flags
     mov w0, player_row
     mov w1, player_col
     bl get_room_pointer
+    cbz  w1, not_connected // (the player should always be standing in a room)
     ldrb player_flags, [x0]
 
-// ------ Rotate & Compare using Bitmask ------
-
-    // rotate target room 180 degrees
-    bl rotate
-    bl rotate
-
     // AND-compare them w/ the bitmask; if they match, that means they're connected
-    and target_flags, target_flags, player_flags
-    and target_flags, target_flags, direction_bitmask
-    cmp target_flags, #0
+    and player_flags, player_flags, target_flags
+    tst player_flags, direction_bitmask
     mov w0, #1
     b.ne done_connected
 

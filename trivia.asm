@@ -6,9 +6,12 @@
 
 define(fp, x29)
 define(lr, x30)
-trivia_scan_fmt:.string " %c" 
+// skips whitespace, reads 1 char, then discards the rest of the line (so extra typed
+// characters are not read as the answer to the next prompt)
+trivia_scan_fmt:.string " %c%*[^\n]"
 
 // global 4-byte int: the number of gems the player is holding
+    .balign 4
     .global gem_count
 gem_count:
     .word 0
@@ -358,7 +361,7 @@ trivia_questions:
 
 // ---------------- Update Room Flags & Gem Count From Trivia Answer ----------------
 // Function:    updates the player's current room & the gem count after a trivia question.
-//              correct: the player gains the room's gem (if it still has one)
+//              correct: the player gains two gems (if the room still has its gem)
 //              incorrect: the player loses a gem (the count never goes below 0)
 //              either way, the room's has_active_puzzle & still_has_gem flags are
 //              set to 0, so the question can't be triggered again
@@ -396,9 +399,9 @@ update_room_flags_and_gem_count_from_trivia_answer:
 
     cbz ur_correct, ur_incorrect
 
-// ------ Correct: gain the room's gem (the still_has_gem flag, bit 2, is 0 or 1) ------
+// ------ Correct: gain two gems if the room still has its gem (the still_has_gem flag, bit 2, is 0 or 1) ------
     ubfx ur_has_gem, ur_flags, #2, #1
-    add ur_gem_count, ur_gem_count, ur_has_gem
+    add ur_gem_count, ur_gem_count, ur_has_gem, lsl #1     // + (0 or 1) * 2
     b ur_store
 
 // ------ Incorrect: lose a gem, if there is one to lose ------
@@ -442,10 +445,10 @@ printTriviaPrompt:
     stp fp, lr, [sp, #-16]!
     mov fp, sp
 
-    ldr x9, = trivia_questions // the array address
+    ldr x9, =trivia_questions // the array address
 
-    mov x11, #16 // give the number 16 a register cause each question takes up 16 bytes 
-    mul x10, x0, x11 // x10 = the depth at which to go (16 bytes * the question position) 
+    mov w11, #16 
+    umull x10, w0, w11 
 
     add x9, x9, x10 // x9 = the address of this question's entry: start of the list + current position
     ldr x0, [x9] // x0 is the pointer to the question string
@@ -463,6 +466,7 @@ takeTriviaAnswer:
     str x19, [sp, #24]
     mov w19, w0
 
+    strb wzr, [sp, #16] // clear the char buffer (so no input counts as a wrong answer)
     ldr x0, =trivia_scan_fmt
     add x1, sp, #16
     bl scanf

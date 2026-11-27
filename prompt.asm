@@ -4,7 +4,7 @@ define(fp, x29)
 define(lr, x30)
 
 prompt_str:  .string "Move (w/a/s/d): "
-scan_fmt:    .string " %c"
+scan_fmt:    .string " %c%*[^\n]"
 invalid_str: .string "Invalid input. Use w, a, s, or d.\n"
 
     .text
@@ -14,7 +14,8 @@ invalid_str: .string "Invalid input. Use w, a, s, or d.\n"
 // Function:    prints a prompt, reads one character, and re-asks until it is
 //              w, a, s, or d (upper case is accepted too)
 // Input:       void
-// Output:      w0: <int> 0 = up (w), 1 = left (a), 2 = down (s), 3 = right (d)
+// Output:      w0: <int> 0 = up (w), 1 = left (a), 2 = down (s), 3 = right (d),
+//                  or -1 if the input ended (EOF) before a move was read
 define(pw_char, w9)
     .global prompt_wasd
 prompt_wasd:
@@ -29,6 +30,8 @@ pw_loop:
     ldr x0, =scan_fmt           // " %c" -> skip whitespace, read 1 char
     add x1, sp, #16             // x1 = address of the buffer
     bl scanf
+    cmp w0, #1                  // scanf returns 1 when it read the char
+    b.ne pw_eof                 // anything else: no input left, so stop asking
 
     ldrb pw_char, [sp, #16]
     orr pw_char, pw_char, #0x20 // force lower case
@@ -57,6 +60,9 @@ pw_invalid:
     ldr x0, =invalid_str
     bl printf
     b pw_loop                   // ask again
+
+pw_eof:
+    mov w0, #-1
 
 pw_done:
     ldp fp, lr, [sp], #32
