@@ -6,8 +6,8 @@ ROOM_TRAP = 3
 ROOM_EXIT = 4
 
 // constants
-MINIMAP_ROWS = 7
-MINIMAP_COLS = 7
+MINIMAP_ROWS = 11
+MINIMAP_COLS = 11
 
 define(fp, x29)
 define(lr, x30)

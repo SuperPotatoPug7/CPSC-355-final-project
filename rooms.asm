@@ -1,6 +1,6 @@
     .data
 
-MINIMAP_COLS = 7
+MINIMAP_COLS = 11
 ROOM_EXIT = 4
 
     .balign 4

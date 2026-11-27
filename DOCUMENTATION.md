@@ -6,7 +6,7 @@ This is the section where design & archetectural decisions are explained to make
 
 - Map:
   - 2D static array in .bss
-  - 7x7
+  - 11x11
   - 2 bytes:
     - byte 1:
       - \<8-bit int> room card index

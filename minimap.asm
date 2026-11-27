@@ -4,8 +4,8 @@ define(fp, x29)
 define(lr, x30)
 
 // constants
-MINIMAP_ROWS = 7
-MINIMAP_COLS = 7
+MINIMAP_ROWS = 11
+MINIMAP_COLS = 11
 
 // minimap output strings
 up_str: .string             " ┏━┓ "
@@ -25,7 +25,7 @@ character_str: .string      "X"
 exit_str: .string           "☆"
 empty_str: .string          " "
 
-border_h: .string           "#####################################\n"
+border_h: .string           "#########################################################\n"
 border_l:.string            "#"
 border_r:.string            "#\n"
 

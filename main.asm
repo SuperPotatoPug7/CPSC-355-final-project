@@ -98,11 +98,11 @@ room_cards:
             .byte 0b00011000 
             .byte 0b00000100 // 19: D (Dead End)     / Exit Room
 
-// 2D global 2-byte array of size 7x7
+// 2D global 2-byte array of size 11x11 (11 * 11 * 2 = 242 bytes)
 // initialized to 0b11111111 / 0b11111111 (empty, no puzzle)
     .global minimap
 minimap:
-    .skip 98, 0xFF
+    .skip 242, 0xFF
 
 // global 4-byte ints: player x & y locations
     .balign 4
